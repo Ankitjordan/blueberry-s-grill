@@ -17,18 +17,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: "18"
-          cache: "npm"
-          cache-dependency-path: "./frontened/package-lock.json"
+          bun-version: latest
 
       - name: Install Dependencies
-        run: npm install
+        run: bun install
 
       - name: Build Next.js App
-        run: npm run build
+        run: bun run build
 
   backend-build-test:
     name: Backend Build and Test
