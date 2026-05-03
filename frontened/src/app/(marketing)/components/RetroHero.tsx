@@ -1,5 +1,7 @@
-import React from "react";
+"use client";
+
 import Image from "next/image";
+import React, { useState } from "react";
 import { RetroButton } from "@/components/ui/RetroButton";
 import { RetroSticker } from "@/components/ui/RetroSticker";
 
@@ -33,13 +35,14 @@ export const RetroHero: React.FC = () => {
           src="/images/blueberrysgrill_hero/hero_dish_2.png"
           alt="Blueberry Grill Hero Dish"
           fill
-          className="object-cover object-center"
+          className="object-cover object-center scale-100 blur-0"
+          sizes="(max-width: 768px) 100vw, 50vw"
           priority
         />
 
         <RetroSticker
           variant="circle"
-          className="bottom-8 right-8"
+          className="bottom-8 right-8 z-30 opacity-100 translate-y-0"
           rotation="-rotate-12"
         >
           FRESH AF EVERY DAY

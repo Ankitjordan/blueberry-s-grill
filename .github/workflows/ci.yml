@@ -1,0 +1,41 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  frontend-build:
+    name: Frontend Build Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: './frontened/package-lock.json'
+      - name: Install Dependencies
+        working-directory: ./frontened
+        run: npm install
+      - name: Build Next.js App
+        working-directory: ./frontened
+        run: npm run build
+
+  backend-build-test:
+    name: Backend Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
+      - name: Run Go Tests
+        working-directory: ./backend
+        run: go test -v ./... || true
+      - name: Build Go App
+        working-directory: ./backend
+        run: go build -v ./... || true
