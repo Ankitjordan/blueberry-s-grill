@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 import { RetroButton } from "@/components/ui/RetroButton";
 import { RetroSticker } from "@/components/ui/RetroSticker";
 

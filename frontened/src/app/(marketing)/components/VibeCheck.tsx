@@ -21,7 +21,7 @@ export const VibeCheck: React.FC = () => {
 				<p className="text-black/90 text-base sm:text-lg leading-relaxed max-w-sm mb-10">
 					We don&apos;t just do food. We do moments. From the curated 90s
 					hip-hop playlist to the 70s diner seats, every corner is designed for
-					your next dump. No reservations needed for the main room, just bring
+					your next hangout. No reservations needed for the main room, just bring
 					the energy.
 				</p>
 

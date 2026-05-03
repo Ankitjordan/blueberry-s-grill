@@ -152,7 +152,7 @@ Provide:
   - Best Practices
 
 - Append to:
-  /frontend/frontend-logs.txt
+  /frontened/frontend-logs.txt
 
 ### Format:
 

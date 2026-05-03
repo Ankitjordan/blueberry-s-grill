@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { LuCherry, LuMenu } from "react-icons/lu";
 
 function HeroNavbar() {
 	const [isVisible, setIsVisible] = useState(true);
 	const [isScrolled, setIsScrolled] = useState(false);
-	const [lastScrollY, setLastScrollY] = useState(0);
+	const lastScrollYRef = useRef(0);
 
 	useEffect(() => {
 		const handleScroll = () => {
@@ -19,7 +19,7 @@ function HeroNavbar() {
 				setIsScrolled(false);
 			}
 
-			if (currentScrollY > lastScrollY && currentScrollY > 50) {
+			if (currentScrollY > lastScrollYRef.current && currentScrollY > 50) {
 				// Scrolling down
 				setIsVisible(false);
 			} else {
@@ -27,12 +27,12 @@ function HeroNavbar() {
 				setIsVisible(true);
 			}
 
-			setLastScrollY(currentScrollY);
+			lastScrollYRef.current = currentScrollY;
 		};
 
 		window.addEventListener("scroll", handleScroll, { passive: true });
 		return () => window.removeEventListener("scroll", handleScroll);
-	}, [lastScrollY]);
+	}, []);
 
 	return (
 		<nav
