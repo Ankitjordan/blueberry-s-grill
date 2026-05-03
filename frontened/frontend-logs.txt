@@ -1,0 +1,7 @@
+
+Timestamp: 2026-05-03T10:48:50.3746675+05:30
+URL: http://localhost:3002
+Performance: 0.66
+SEO: 1
+Accessibility: 1
+Best Practices: 0.96

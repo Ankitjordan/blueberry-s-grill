@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import type React from "react";
+import { useEffect, useRef, useState } from "react";
 import { RetroButton } from "@/components/ui/RetroButton";
-import { MegaMenu, MENU_CATEGORIES, MenuItem } from "./MegaMenu";
+import { MENU_CATEGORIES, MegaMenu, type MenuItem } from "./MegaMenu";
 import { MobileSidebarPreview } from "./MenuSidebarPreview";
 
 /* ── Types ── */
@@ -14,24 +15,26 @@ interface NavLink {
 
 const OTHER_NAV_LINKS: NavLink[] = [
   { name: "Vibe Check", href: "#vibe-check" },
-  { name: "Events",     href: "#" },
-  { name: "Locations",  href: "#" },
+  { name: "Events", href: "#" },
+  { name: "Locations", href: "#" },
 ];
 
 /* ── Component ── */
 
 export const RetroHeader: React.FC = () => {
-  const [isVisible,          setIsVisible]          = useState(true);
-  const [lastScrollY,        setLastScrollY]        = useState(0);
-  const [isScrolled,         setIsScrolled]         = useState(false);
-  const [isMobileMenuOpen,   setIsMobileMenuOpen]   = useState(false);
-  const [isMegaMenuOpen,     setIsMegaMenuOpen]     = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   // Mobile accordion: which section is expanded ("menu" | null)
-  const [mobileSection,      setMobileSection]      = useState<string | null>(null);
+  const [mobileSection, setMobileSection] = useState<string | null>(null);
   // Mobile accordion: which category is expanded
-  const [mobileCategory,     setMobileCategory]     = useState<string | null>(null);
+  const [mobileCategory, setMobileCategory] = useState<string | null>(null);
   // Mobile sidebar preview
-  const [mobileSidebarItem,  setMobileSidebarItem]  = useState<MenuItem | null>(null);
+  const [mobileSidebarItem, setMobileSidebarItem] = useState<MenuItem | null>(
+    null,
+  );
 
   const megaTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -58,7 +61,7 @@ export const RetroHeader: React.FC = () => {
   }, [isMobileMenuOpen]);
 
   /* — Mega menu hover with debounce — */
-  const openMegaMenu  = () => {
+  const openMegaMenu = () => {
     if (megaTimeoutRef.current) clearTimeout(megaTimeoutRef.current);
     setIsMegaMenuOpen(true);
   };
@@ -93,17 +96,17 @@ export const RetroHeader: React.FC = () => {
     <>
       {/* ── Main header bar ── */}
       <header className={headerClass}>
-
         {/* Logo */}
         <div className="font-black text-2xl sm:text-3xl tracking-tighter uppercase relative z-50">
           <Link href="/" onClick={closeMobileMenu}>
-            BLUEBERRY<span className="text-xl mx-1 align-middle text-[#ff5500]">★</span>GRILL
+            BLUEBERRY
+            <span className="text-xl mx-1 align-middle text-[#ff5500]">★</span>
+            GRILL
           </Link>
         </div>
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center space-x-8 font-bold text-sm tracking-wider uppercase">
-
           {/* Menu — mega menu trigger */}
           <div
             className="relative"
@@ -113,16 +116,29 @@ export const RetroHeader: React.FC = () => {
             <button
               aria-expanded={isMegaMenuOpen}
               aria-haspopup="true"
+              onClick={() => setIsMegaMenuOpen((prev) => !prev)}
+              onKeyDown={(e) => {
+                if (e.key === "Escape") setIsMegaMenuOpen(false);
+              }}
               className={`flex items-center gap-1 transition-colors duration-150 ${
                 isMegaMenuOpen ? "text-[#ff5500]" : "hover:text-[#ff5500]"
               }`}
             >
               Menu
               <svg
-                width="10" height="6" viewBox="0 0 10 6" fill="none"
+                width="10"
+                height="6"
+                viewBox="0 0 10 6"
+                fill="none"
                 className={`transition-transform duration-300 ${isMegaMenuOpen ? "rotate-180" : ""}`}
               >
-                <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M1 1L5 5L9 1"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
           </div>
@@ -153,9 +169,15 @@ export const RetroHeader: React.FC = () => {
             onClick={() => setIsMobileMenuOpen((p) => !p)}
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           >
-            <div className={`w-6 h-0.5 bg-black transition-transform duration-300 ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""}`} />
-            <div className={`w-6 h-0.5 bg-black transition-opacity duration-300 ${isMobileMenuOpen ? "opacity-0" : ""}`} />
-            <div className={`w-6 h-0.5 bg-black transition-transform duration-300 ${isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+            <div
+              className={`w-6 h-0.5 bg-black transition-transform duration-300 ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""}`}
+            />
+            <div
+              className={`w-6 h-0.5 bg-black transition-opacity duration-300 ${isMobileMenuOpen ? "opacity-0" : ""}`}
+            />
+            <div
+              className={`w-6 h-0.5 bg-black transition-transform duration-300 ${isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`}
+            />
           </button>
         </div>
       </header>
@@ -176,7 +198,6 @@ export const RetroHeader: React.FC = () => {
         }`}
       >
         <div className="pt-24 pb-12 px-8">
-
           {/* ── MENU accordion ── */}
           <div className="border-b-2 border-black">
             <button
@@ -185,10 +206,19 @@ export const RetroHeader: React.FC = () => {
             >
               Menu
               <svg
-                width="20" height="12" viewBox="0 0 10 6" fill="none"
+                width="20"
+                height="12"
+                viewBox="0 0 10 6"
+                fill="none"
                 className={`transition-transform duration-300 ${mobileSection === "menu" ? "rotate-180" : ""}`}
               >
-                <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M1 1L5 5L9 1"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
 
@@ -206,10 +236,19 @@ export const RetroHeader: React.FC = () => {
                   >
                     {cat.label}
                     <svg
-                      width="14" height="9" viewBox="0 0 10 6" fill="none"
+                      width="14"
+                      height="9"
+                      viewBox="0 0 10 6"
+                      fill="none"
                       className={`transition-transform duration-300 ${mobileCategory === cat.id ? "rotate-180" : ""}`}
                     >
-                      <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      <path
+                        d="M1 1L5 5L9 1"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
                     </svg>
                   </button>
 
@@ -226,8 +265,12 @@ export const RetroHeader: React.FC = () => {
                             onClick={() => setMobileSidebarItem(item)}
                             className="w-full flex items-center justify-between py-1.5 border-b border-black/10 hover:text-[#ff5500] transition-colors"
                           >
-                            <span className="font-bold text-sm">{item.name}</span>
-                            <span className="font-black font-serif italic text-[#2d3bfe] text-sm">{item.price} →</span>
+                            <span className="font-bold text-sm">
+                              {item.name}
+                            </span>
+                            <span className="font-black font-serif italic text-[#2d3bfe] text-sm">
+                              {item.price} →
+                            </span>
                           </button>
                         </li>
                       ))}
