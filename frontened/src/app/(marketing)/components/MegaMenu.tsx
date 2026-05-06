@@ -13,6 +13,7 @@ export interface MenuItem {
 	image: string;
 	description: string;
 	rating: number;
+	href: string;
 }
 
 export interface MenuCategory {
@@ -34,6 +35,7 @@ export const MENU_CATEGORIES: MenuCategory[] = [
 				description:
 					"Cheese, jalapeños, sour cream drizzle on crispy golden fries.",
 				rating: 4,
+				href: "#",
 			},
 			{
 				name: "Crispy Wings",
@@ -41,6 +43,7 @@ export const MENU_CATEGORIES: MenuCategory[] = [
 				image: "/images/foods/food_13.jpg",
 				description: "6 pcs tossed in your choice of signature house sauce.",
 				rating: 5,
+				href: "#",
 			},
 			{
 				name: "Nachos Supreme",
@@ -49,6 +52,7 @@ export const MENU_CATEGORIES: MenuCategory[] = [
 				description:
 					"Guac, pico de gallo, three-cheese pull — the crowd pleaser.",
 				rating: 4,
+				href: "#",
 			},
 			{
 				name: "Onion Rings",
@@ -56,6 +60,7 @@ export const MENU_CATEGORIES: MenuCategory[] = [
 				image: "/images/foods/food_15.jpg",
 				description: "Beer battered rings served with our tangy aioli.",
 				rating: 3,
+				href: "#",
 			},
 		],
 	},
@@ -70,6 +75,7 @@ export const MENU_CATEGORIES: MenuCategory[] = [
 				description:
 					"Triple wagyu smash patty, secret vibe sauce, pickles on brioche.",
 				rating: 5,
+				href: "#",
 			},
 			{
 				name: "Club Sandwich",
@@ -78,6 +84,7 @@ export const MENU_CATEGORIES: MenuCategory[] = [
 				description:
 					"Grilled chicken, avocado, fresh greens on sourdough toast.",
 				rating: 4,
+				href: "#",
 			},
 			{
 				name: "BBQ Platter",
@@ -86,6 +93,7 @@ export const MENU_CATEGORIES: MenuCategory[] = [
 				description:
 					"Ribs, wings, corn on the cob, and house slaw — the full spread.",
 				rating: 5,
+				href: "#",
 			},
 			{
 				name: "Pasta Al Forno",
@@ -93,6 +101,7 @@ export const MENU_CATEGORIES: MenuCategory[] = [
 				image: "/images/foods/food_11.jpg",
 				description: "Baked penne in a rich slow-cooked tomato and herb sauce.",
 				rating: 4,
+				href: "#",
 			},
 		],
 	},
@@ -107,6 +116,7 @@ export const MENU_CATEGORIES: MenuCategory[] = [
 				description:
 					"Gin, butterfly pea, elderflower and gold glitter edible dust.",
 				rating: 5,
+				href: "#",
 			},
 			{
 				name: "Berry Smash",
@@ -115,6 +125,7 @@ export const MENU_CATEGORIES: MenuCategory[] = [
 				description:
 					"Muddled fresh berries, soda water, torn mint — wildly refreshing.",
 				rating: 4,
+				href: "#",
 			},
 			{
 				name: "Iced Matcha",
@@ -123,6 +134,7 @@ export const MENU_CATEGORIES: MenuCategory[] = [
 				description:
 					"Ceremonial grade matcha over creamy oat milk and crushed ice.",
 				rating: 4,
+				href: "#",
 			},
 			{
 				name: "Mango Shake",
@@ -131,6 +143,7 @@ export const MENU_CATEGORIES: MenuCategory[] = [
 				description:
 					"Alphonso mango blended with vanilla ice cream, house blend.",
 				rating: 3,
+				href: "#",
 			},
 		],
 	},
@@ -145,6 +158,7 @@ export const MENU_CATEGORIES: MenuCategory[] = [
 				description:
 					"Fresh berries, whipped cream and a generous Nutella drizzle.",
 				rating: 5,
+				href: "/menu/desserts",
 			},
 			{
 				name: "Brownie Stack",
@@ -153,21 +167,32 @@ export const MENU_CATEGORIES: MenuCategory[] = [
 				description:
 					"Warm chocolate brownie with fudge sauce and a vanilla scoop.",
 				rating: 5,
+				href: "/menu/desserts/brownie-stack",
 			},
 			{
-				name: "Blueberry Pancakes",
+				name: "Berry Cream Waffle",
 				price: "$11",
 				image: "/images/foods/food_2.jpg",
 				description:
 					"Our signature stack — served with maple butter. A legend.",
 				rating: 5,
+				href: "/menu/desserts/berry-cream-waffle",
 			},
 			{
-				name: "Ice Cream Sundae",
-				price: "$8",
-				image: "/images/foods/food_24.jpg",
-				description: "3 scoops of your choice with toppings from our bar.",
-				rating: 4,
+				name: "Chocolate Banana French Toast",
+				price: "$12",
+				image: "/images/foods/food_1.jpg",
+				description: "Indulgent thick-cut brioche French toast layered with rich chocolate.",
+				rating: 5,
+				href: "/menu/desserts/chocolate-banana-french-toast",
+			},
+			{
+				name: "Pancake",
+				price: "$11",
+				image: "/images/foods/food_3.jpg",
+				description: "Classic, perfectly fluffy buttermilk pancakes served with premium maple syrup.",
+				rating: 5,
+				href: "/menu/desserts/pancake",
 			},
 		],
 	},
@@ -188,17 +213,18 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
 	tabIndex,
 }) => (
 	<li>
-		<button
+		<Link
+			href={item.href}
 			tabIndex={tabIndex}
 			onMouseEnter={() => onHover(item)}
 			onFocus={() => onHover(item)}
 			className={`group w-full flex items-center gap-3 p-1.5 -mx-1.5 transition-all duration-150 text-left ${
-				isActive ? "bg-black text-white" : "hover:bg-black hover:text-white"
+				isActive ? "bg-white/5 text-white" : "hover:bg-white/5 hover:text-white"
 			}`}
 		>
 			<div
 				className={`relative w-10 h-10 flex-shrink-0 overflow-hidden border transition-colors ${
-					isActive ? "border-white" : "border-black group-hover:border-white"
+					isActive ? "border-white/40" : "border-white/10 group-hover:border-white/40"
 				}`}
 			>
 				<Image
@@ -217,8 +243,8 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
 					<span
 						className={`text-xs font-black font-serif italic flex-shrink-0 transition-colors ${
 							isActive
-								? "text-[#d4ff00]"
-								: "text-[#2d3bfe] group-hover:text-[#d4ff00]"
+								? "text-[#D4AF37]"
+								: "text-gray-400 group-hover:text-[#D4AF37]"
 						}`}
 					>
 						{item.price}
@@ -234,7 +260,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
 					{item.description.split(",")[0]}
 				</p>
 			</div>
-		</button>
+		</Link>
 	</li>
 );
 
@@ -264,7 +290,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
 			aria-hidden={!isOpen}
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={handlePanelLeave}
-			className={`fixed left-0 right-0 top-[73px] z-40 bg-[#fdfaf5] border-b-2 border-black shadow-[0_6px_0_0_rgba(0,0,0,1)] transition-all duration-300 ease-in-out ${
+			className={`fixed left-0 right-0 top-[73px] z-40 bg-background border-b border-white/10 shadow-[0_6px_30px_rgba(0,0,0,0.5)] transition-all duration-300 ease-in-out ${
 				isOpen
 					? "opacity-100 translate-y-0 pointer-events-auto"
 					: "opacity-0 -translate-y-3 pointer-events-none"
@@ -273,14 +299,14 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
 			<div className="w-full flex">
 				{/* ── Categories ── */}
 				<div className="flex-1 px-6 sm:px-12 py-8 min-w-0">
-					<div className="flex items-center justify-between mb-6 pb-4 border-b-2 border-black">
+					<div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
 						<p className="text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500">
 							OUR MENU
 						</p>
 						<Link
 							href="#"
 							tabIndex={isOpen ? 0 : -1}
-							className="text-xs font-bold uppercase tracking-widest underline decoration-2 underline-offset-4 hover:text-[#ff5500] transition-colors duration-150"
+							className="text-xs font-bold uppercase tracking-widest underline decoration-1 underline-offset-4 hover:text-[#D4AF37] transition-colors duration-150"
 						>
 							See Full Menu →
 						</Link>
@@ -289,7 +315,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
 					<div className="grid grid-cols-4 gap-6">
 						{MENU_CATEGORIES.map((category) => (
 							<div key={category.id}>
-								<h3 className="font-black text-sm uppercase tracking-widest mb-4 pb-2 border-b border-black/20">
+								<h3 className="font-black text-sm uppercase tracking-widest mb-4 pb-2 border-b border-white/10 text-white">
 									{category.label}
 								</h3>
 								<ul className="space-y-2">

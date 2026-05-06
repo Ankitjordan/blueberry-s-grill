@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import type React from "react";
+import Link from "next/link";
+import React, { useState, useEffect, useMemo } from "react";
 import type { MenuItem } from "./MegaMenu";
 
 /* ── Star Rating ── */
@@ -68,9 +69,12 @@ export const DesktopSidebarPreview: React.FC<DesktopSidebarProps> = ({
             <span className="text-2xl font-black font-serif italic text-[#d4ff00]">
               {item.price}
             </span>
-            <button className="px-4 py-2 bg-[#ff5500] text-white text-xs font-bold uppercase tracking-wider border-2 border-[#ff5500] hover:bg-transparent hover:text-[#ff5500] transition-colors duration-150">
+            <Link 
+              href={item.href}
+              className="px-4 py-2 bg-[#ff5500] text-white text-xs font-bold uppercase tracking-wider border-2 border-[#ff5500] hover:bg-transparent hover:text-[#ff5500] transition-colors duration-150"
+            >
               Order →
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -87,59 +91,79 @@ interface MobileSidebarProps {
 export const MobileSidebarPreview: React.FC<MobileSidebarProps> = ({
   item,
   onClose,
-}) => (
-  <div
-    className={`fixed inset-0 z-[60] bg-[#1a1a1a] text-white flex flex-col transition-all duration-400 ease-in-out ${
-      item
-        ? "opacity-100 translate-x-0 pointer-events-auto"
-        : "opacity-0 translate-x-full pointer-events-none"
-    }`}
-  >
-    {/* Close */}
-    <button
-      onClick={onClose}
-      aria-label="Close preview"
-      className="absolute top-5 right-5 z-10 w-10 h-10 flex items-center justify-center border-2 border-white/30 font-black text-lg hover:bg-white hover:text-black transition-colors"
+}) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  // Prevent SSR errors by only using createPortal on the client
+  if (typeof document === "undefined") return null;
+  
+  const { createPortal } = require("react-dom");
+  
+  return createPortal(
+    <div
+      className={`fixed top-[73px] left-0 w-full h-[calc(100vh-73px)] z-[9999] bg-[#1a1a1a] text-white flex flex-col transition-all duration-400 ease-in-out ${
+        item
+          ? "opacity-100 translate-x-0 pointer-events-auto"
+          : "opacity-0 translate-x-full pointer-events-none"
+      }`}
     >
-      ✕
-    </button>
+      {/* Close */}
+      <button
+        onClick={onClose}
+        aria-label="Close preview"
+        className="absolute top-5 right-5 z-10 w-10 h-10 flex items-center justify-center border-2 border-white/30 font-black text-lg hover:bg-white hover:text-black transition-colors"
+      >
+        ✕
+      </button>
 
-    {item && (
-      <>
-        {/* Hero image */}
-        <div className="relative w-full h-64 flex-shrink-0">
-          <Image
-            src={item.image}
-            alt={item.name}
-            fill
-            className="object-cover"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] to-transparent" />
-        </div>
-
-        {/* Content */}
-        <div className="flex flex-col flex-1 px-8 py-6 overflow-y-auto">
-          <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-2">
-            Chef&apos;s Pick
-          </p>
-          <h2 className="text-3xl font-black uppercase tracking-tighter mb-3">
-            {item.name}
-          </h2>
-          <StarRating rating={item.rating} />
-          <p className="text-gray-400 mt-4 text-sm leading-relaxed">
-            {item.description}
-          </p>
-          <div className="mt-6">
-            <span className="text-4xl font-black font-serif italic text-[#d4ff00]">
-              {item.price}
-            </span>
+      {item && (
+        <>
+          {/* Hero image */}
+          <div className="relative w-full h-64 flex-shrink-0">
+            <Image
+              src={item.image}
+              alt={item.name}
+              fill
+              className="object-cover"
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] to-transparent" />
           </div>
-          <button className="mt-8 py-4 bg-[#ff5500] text-white font-bold uppercase tracking-widest border-2 border-[#ff5500] hover:bg-transparent hover:text-[#ff5500] transition-colors duration-150">
-            Add to Order
-          </button>
-        </div>
-      </>
-    )}
-  </div>
-);
+
+          {/* Content */}
+          <div className="flex flex-col flex-1 px-8 py-6 overflow-y-auto">
+            <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-2">
+              Chef&apos;s Pick
+            </p>
+            <h2 className="text-3xl font-black uppercase tracking-tighter mb-3">
+              {item.name}
+            </h2>
+            <StarRating rating={item.rating} />
+            <p className="text-gray-400 mt-4 text-sm leading-relaxed">
+              {item.description}
+            </p>
+            <div className="mt-6">
+              <span className="text-4xl font-black font-serif italic text-[#d4ff00]">
+                {item.price}
+              </span>
+            </div>
+            <Link 
+              href={item.href}
+              onClick={onClose}
+              className="mt-8 py-4 bg-[#ff5500] text-white text-center font-bold uppercase tracking-widest border-2 border-[#ff5500] hover:bg-transparent hover:text-[#ff5500] transition-colors duration-150"
+            >
+              Add to Order
+            </Link>
+          </div>
+        </>
+      )}
+    </div>,
+    document.body
+  );
+};
