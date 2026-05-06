@@ -3,7 +3,8 @@
 import Link from "next/link";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
-import { RetroButton } from "@/components/ui/RetroButton";
+import { DirectionalButton } from "@/components/ui/DirectionalButton";
+import Image from "next/image";
 import { MENU_CATEGORIES, MegaMenu, type MenuItem } from "./MegaMenu";
 import { MobileSidebarPreview } from "./MenuSidebarPreview";
 
@@ -84,29 +85,40 @@ export const RetroHeader: React.FC = () => {
   const headerClass = [
     "w-full flex items-center justify-between py-4 px-6 sm:px-12",
     "fixed top-0 left-0 z-50",
-    "border-b-2 border-black",
     "transition-all duration-300 ease-in-out",
     isVisible ? "translate-y-0" : "-translate-y-full",
     isScrolled || isMobileMenuOpen
-      ? "bg-[#fdfaf5]/95 backdrop-blur-sm py-3"
-      : "bg-[#fdfaf5]",
+      ? "bg-background/95 backdrop-blur-sm py-3"
+      : "bg-background",
   ].join(" ");
 
   return (
     <>
       {/* ── Main header bar ── */}
       <header className={headerClass}>
-        {/* Logo */}
-        <div className="font-black text-2xl sm:text-3xl tracking-tighter uppercase relative z-50">
-          <Link href="/" onClick={closeMobileMenu}>
-            BLUEBERRY
-            <span className="text-xl mx-1 align-middle text-[#ff5500]">★</span>
-            GRILL
+        <div className="relative z-50">
+          <Link
+            href="/"
+            onClick={closeMobileMenu}
+            className="flex items-center gap-2 group transition-all duration-300 hover:scale-105"
+          >
+            <Image
+              src="/favIcon.svg"
+              alt="Blueberry's Grill Logo"
+              width={32}
+              height={32}
+            />
+            <span className="font-black text-sm md:text-base tracking-tight uppercase">
+              BLUEBERRY&apos;S{" "}
+              <span className="font-normal lowercase tracking-widest text-[10px] md:text-xs ml-1 opacity-80">
+                grill
+              </span>
+            </span>
           </Link>
         </div>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center space-x-8 font-bold text-sm tracking-wider uppercase">
+        <nav className="hidden md:flex items-center space-x-8 font-bold text-[10px] tracking-widest uppercase">
           {/* Menu — mega menu trigger */}
           <div
             className="relative"
@@ -121,7 +133,7 @@ export const RetroHeader: React.FC = () => {
                 if (e.key === "Escape") setIsMegaMenuOpen(false);
               }}
               className={`flex items-center gap-1 transition-colors duration-150 ${
-                isMegaMenuOpen ? "text-[#ff5500]" : "hover:text-[#ff5500]"
+                isMegaMenuOpen ? "text-[#D4AF37]" : "hover:text-[#D4AF37]"
               }`}
             >
               Menu
@@ -148,7 +160,7 @@ export const RetroHeader: React.FC = () => {
             <Link
               key={link.name}
               href={link.href}
-              className="hover:text-[#ff5500] transition-colors duration-150"
+              className="hover:text-[#D4AF37] transition-colors duration-150"
             >
               {link.name}
             </Link>
@@ -158,9 +170,9 @@ export const RetroHeader: React.FC = () => {
         {/* Right actions */}
         <div className="flex items-center gap-4 relative z-50">
           <div className="hidden sm:block">
-            <RetroButton variant="accent" className="text-xs px-4 py-2">
+            <DirectionalButton variant="accent" className="text-[10px] px-4 py-2">
               Book a Table
-            </RetroButton>
+            </DirectionalButton>
           </div>
 
           {/* Hamburger */}
@@ -170,13 +182,13 @@ export const RetroHeader: React.FC = () => {
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           >
             <div
-              className={`w-6 h-0.5 bg-black transition-transform duration-300 ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""}`}
+              className={`w-6 h-0.5 bg-white transition-transform duration-300 ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""}`}
             />
             <div
-              className={`w-6 h-0.5 bg-black transition-opacity duration-300 ${isMobileMenuOpen ? "opacity-0" : ""}`}
+              className={`w-6 h-0.5 bg-white transition-opacity duration-300 ${isMobileMenuOpen ? "opacity-0" : ""}`}
             />
             <div
-              className={`w-6 h-0.5 bg-black transition-transform duration-300 ${isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`}
+              className={`w-6 h-0.5 bg-white transition-transform duration-300 ${isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`}
             />
           </button>
         </div>
@@ -191,7 +203,7 @@ export const RetroHeader: React.FC = () => {
 
       {/* ── Mobile full-screen overlay ── */}
       <div
-        className={`fixed inset-0 bg-[#fdfaf5] z-40 overflow-y-auto transition-all duration-500 ease-in-out md:hidden ${
+        className={`fixed inset-0 bg-background z-40 overflow-y-auto transition-all duration-500 ease-in-out md:hidden ${
           isMobileMenuOpen
             ? "opacity-100 translate-x-0 pointer-events-auto"
             : "opacity-0 translate-x-full pointer-events-none"
@@ -199,10 +211,10 @@ export const RetroHeader: React.FC = () => {
       >
         <div className="pt-24 pb-12 px-8">
           {/* ── MENU accordion ── */}
-          <div className="border-b-2 border-black">
+          <div className="border-b-2 border-white/20">
             <button
               onClick={() => toggleMobileSection("menu")}
-              className="w-full flex items-center justify-between py-5 text-4xl font-black uppercase tracking-tighter hover:text-[#ff5500] transition-colors"
+              className="w-full flex items-center justify-between py-5 text-xl font-black uppercase tracking-tighter hover:text-[#D4AF37] transition-colors"
             >
               Menu
               <svg
@@ -232,7 +244,7 @@ export const RetroHeader: React.FC = () => {
                 <div key={cat.id} className="border-t border-black/10">
                   <button
                     onClick={() => toggleMobileCategory(cat.id)}
-                    className="w-full flex items-center justify-between py-3 px-4 text-lg font-bold uppercase tracking-wide hover:text-[#ff5500] transition-colors"
+                    className="w-full flex items-center justify-between py-3 px-4 text-sm font-bold uppercase tracking-wide hover:text-[#D4AF37] transition-colors"
                   >
                     {cat.label}
                     <svg
@@ -261,17 +273,18 @@ export const RetroHeader: React.FC = () => {
                     <ul className="px-4 pb-4 space-y-2">
                       {cat.items.map((item) => (
                         <li key={item.name}>
-                          <button
-                            onClick={() => setMobileSidebarItem(item)}
-                            className="w-full flex items-center justify-between py-1.5 border-b border-black/10 hover:text-[#ff5500] transition-colors"
+                          <Link
+                            href={item.href}
+                            onClick={closeMobileMenu}
+                            className="w-full flex items-center justify-between py-1.5 border-b border-black/10 hover:text-[#D4AF37] transition-colors"
                           >
-                            <span className="font-bold text-sm">
+                            <span className="font-bold text-xs">
                               {item.name}
                             </span>
-                            <span className="font-black font-serif italic text-[#2d3bfe] text-sm">
+                            <span className="font-black font-serif italic text-[#2d3bfe] text-xs">
                               {item.price} →
                             </span>
-                          </button>
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -287,7 +300,7 @@ export const RetroHeader: React.FC = () => {
               key={link.name}
               href={link.href}
               onClick={closeMobileMenu}
-              className="block py-5 text-4xl font-black uppercase tracking-tighter border-b-2 border-black hover:text-[#ff5500] transition-colors"
+              className="block py-4 text-xl font-black uppercase tracking-tighter border-b-2 border-white/20 hover:text-[#D4AF37] transition-colors"
             >
               {link.name}
             </Link>
@@ -295,9 +308,9 @@ export const RetroHeader: React.FC = () => {
 
           {/* CTA */}
           <div className="pt-10">
-            <RetroButton variant="accent" onClick={closeMobileMenu}>
+            <DirectionalButton variant="accent" onClick={closeMobileMenu}>
               Book a Table
-            </RetroButton>
+            </DirectionalButton>
           </div>
         </div>
 

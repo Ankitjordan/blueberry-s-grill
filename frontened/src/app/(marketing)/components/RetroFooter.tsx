@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import type React from "react";
+import Image from "next/image";
 
 /* ── Data ── */
 
@@ -29,92 +32,118 @@ const SOCIAL_LINKS = [
 
 export const RetroFooter: React.FC = () => {
   return (
-    <footer className="w-full bg-[#fdfaf5] border-t-4 border-black">
-      {/* ── Main section ── */}
-      <div className="w-full px-6 sm:px-12 pt-16 pb-12 grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-12">
-        {/* Brand block */}
-        <div className="flex flex-col gap-5">
-          <Link
-            href="/"
-            className="font-black text-4xl sm:text-5xl tracking-tighter uppercase leading-none inline-block text-black hover:text-[#ff5500] transition-colors duration-150"
-          >
-            BLUEBERRY<span className="text-[#ff5500]">★</span>GRILL
-          </Link>
-          <p className="text-gray-600 text-sm sm:text-base leading-relaxed max-w-xs">
-            Your local spot for high-fidelity food and low-fidelity vibes.
-            <br />
-            Est. 2024 — but it feels like 1974.
-          </p>
+    <footer className="relative w-full bg-background overflow-hidden">
+      <div className="relative z-10">
+        {/* ── Main section ── */}
+        <div className="w-full px-6 sm:px-12 pt-24 pb-20 grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-16 md:gap-24">
+          {/* Brand block */}
+          <div className="flex flex-col gap-8">
+            <Link
+              href="/"
+              className="flex items-center gap-4 group transition-all duration-300"
+            >
+              <Image
+                src="/favIcon.svg"
+                alt="Blueberry's Grill Logo"
+                width={48}
+                height={48}
+                className="w-12 h-12"
+              />
+              <span className="font-black text-4xl tracking-tighter uppercase leading-none text-white group-hover:text-[#D4AF37] transition-colors duration-300">
+                BLUEBERRY&apos;S <span className="text-[#D4AF37]">GRILL</span>
+              </span>
+            </Link>
+            <p className="text-gray-400 text-lg leading-relaxed max-w-sm font-medium">
+              High-fidelity food and low-fidelity vibes since 2024. Crafted for
+              the community, served with soul.
+            </p>
+            {/* Newsletter-ish area */}
+            <div className="space-y-4 max-w-sm">
+              <label
+                htmlFor="newsletter-email"
+                className="text-xs font-black uppercase tracking-[0.2em] text-[#D4AF37] block"
+              >
+                Join the Club
+              </label>
+              <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
+                <input
+                  id="newsletter-email"
+                  name="email"
+                  type="email"
+                  placeholder="Email address"
+                  className="bg-white/5 border border-white/10 px-4 py-3 rounded-full text-sm w-full focus:outline-none focus:border-[#D4AF37] transition-colors"
+                />
+                <button
+                  type="submit"
+                  className="bg-[#D4AF37] text-black px-6 py-3 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-white transition-colors"
+                >
+                  Join
+                </button>
+              </form>
+            </div>{" "}
+          </div>
 
-          {/* Mini tagline sticker */}
-          <div className="inline-flex">
-            <span className="px-4 py-1.5 bg-[#d4ff00] text-black font-bold text-xs uppercase tracking-widest border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
-              OPEN TIL 2AM ★ NO RULES
-            </span>
+          {/* Nav links */}
+          <div className="pt-4">
+            <p className="text-[11px] font-black tracking-[0.3em] uppercase text-[#D4AF37] mb-8">
+              EXPLORE
+            </p>
+            <ul className="space-y-4">
+              {NAV_LINKS.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-lg font-bold text-gray-400 hover:text-white transition-colors duration-200 block"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Hours */}
+          <div className="pt-4">
+            <p className="text-[11px] font-black tracking-[0.3em] uppercase text-[#D4AF37] mb-8">
+              VISIT US
+            </p>
+            <ul className="space-y-6">
+              {HOURS.map(({ days, time }) => (
+                <li key={days} className="flex flex-col gap-1">
+                  <span className="text-sm font-black uppercase tracking-widest text-white">
+                    {days}
+                  </span>
+                  <span className="text-gray-400 font-medium">{time}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        {/* Nav links */}
-        <div>
-          <p className="text-[11px] font-black tracking-[0.2em] uppercase text-[#2d3bfe] mb-5">
-            NAV
+        {/* ── Bottom bar ── */}
+        <div className="w-full border-t border-white/5 px-6 sm:px-12 py-10 flex flex-col md:flex-row items-center justify-between gap-8">
+          {/* Copyright */}
+          <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">
+            © {new Date().getFullYear()} BLUEBERRY&apos;S GRILL GROUP • ALL
+            RIGHTS RESERVED
           </p>
-          <ul className="space-y-3">
-            {NAV_LINKS.map((link) => (
-              <li key={link.label}>
-                <Link
-                  href={link.href}
-                  className="text-sm font-medium text-gray-700 hover:text-[#ff5500] hover:underline decoration-2 underline-offset-4 transition-colors duration-150"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
 
-        {/* Hours */}
-        <div>
-          <p className="text-[11px] font-black tracking-[0.2em] uppercase text-[#2d3bfe] mb-5">
-            HOURS
-          </p>
-          <ul className="space-y-3">
-            {HOURS.map(({ days, time }) => (
-              <li
-                key={days}
-                className="grid grid-cols-[90px_1fr] gap-2 text-sm"
+          {/* Social icons (minimalist) */}
+          <div className="flex items-center gap-8">
+            {SOCIAL_LINKS.map((s) => (
+              <Link
+                key={s.label}
+                href={s.href}
+                className="text-[10px] font-black tracking-[0.3em] uppercase text-white hover:text-[#D4AF37] transition-all duration-300 hover:-translate-y-0.5"
               >
-                <span className="font-bold text-black">{days}</span>
-                <span className="text-gray-600">{time}</span>
-              </li>
+                {s.label}
+              </Link>
             ))}
-          </ul>
-        </div>
-      </div>
+          </div>
 
-      {/* ── Bottom bar ── */}
-      <div className="w-full border-t-2 border-black px-6 sm:px-12 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
-        {/* Copyright */}
-        <p className="text-[11px] font-bold tracking-widest uppercase text-gray-600">
-          © {new Date().getFullYear()} BLUEBERRY&apos;S GRILL GROUP
-        </p>
-
-        {/* Credit */}
-        <p className="text-[11px] font-bold tracking-widest uppercase text-gray-500 text-center">
-          COOKED UP WITH LOVE &amp; BUILT ON NEXT.JS
-        </p>
-
-        {/* Social */}
-        <div className="flex items-center gap-4">
-          {SOCIAL_LINKS.map((s) => (
-            <Link
-              key={s.label}
-              href={s.href}
-              className="text-[11px] font-black tracking-widest uppercase text-black hover:text-[#ff5500] transition-colors duration-150"
-            >
-              {s.label}
-            </Link>
-          ))}
+          <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400">
+            PRIVACY • TERMS • COOKIES
+          </p>
         </div>
       </div>
     </footer>
