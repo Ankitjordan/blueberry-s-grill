@@ -6,7 +6,7 @@ import { DirectionalButton } from "@/components/ui/DirectionalButton";
 import { useTransitionNavigation } from "@/components/transition-provider";
 
 interface MenuNextSectionProps {
-  description: string;
+  description?: string;
   nextItemName: string;
   nextItemHref: string;
 }
@@ -20,11 +20,13 @@ export const MenuNextSection = ({
 
   return (
     <div className="flex flex-col items-center justify-center pt-12">
-      <div className="mb-12 text-center max-w-2xl">
-        <p className="text-gray-400 text-lg leading-relaxed italic">
-          "{description}"
-        </p>
-      </div>
+      {description && (
+        <div className="mb-12 text-center max-w-2xl">
+          <p className="text-gray-400 text-lg leading-relaxed italic">
+            "{description}"
+          </p>
+        </div>
+      )}
 
       <DirectionalButton
         variant="primary"
