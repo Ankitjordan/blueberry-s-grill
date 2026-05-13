@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -36,6 +37,11 @@ func (ctrl *AgentController) HandleChat(c *gin.Context) {
 
 	if len(req.Message) > 2000 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Message too long"})
+		return
+	}
+
+	if len(strings.TrimSpace(req.Message)) == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Message cannot be empty"})
 		return
 	}
 

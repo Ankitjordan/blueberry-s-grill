@@ -1,8 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
+import Link from "next/link";
+import type React from "react";
+import { useEffect, useRef } from "react";
 
 type BaseProps = {
 	children: React.ReactNode;
@@ -63,10 +64,12 @@ export const DirectionalButton: React.FC<DirectionalButtonProps> = ({
 	const finalBg = backgroundColor || config?.bg || "bg-slate-900";
 	const finalText = textColor || config?.text || "text-white";
 	const finalBlob = blobColor || config?.blob || "bg-[#CCFF00]";
-	const finalShadow = config?.shadow || "hover:shadow-[0_0_20px_rgba(204,255,0,0.15)]";
+	const finalShadow =
+		config?.shadow || "hover:shadow-[0_0_20px_rgba(204,255,0,0.15)]";
 
 	useEffect(() => {
-		const element = (buttonRef.current || anchorRef.current) as HTMLElement | null;
+		const element = (buttonRef.current ||
+			anchorRef.current) as HTMLElement | null;
 		const blob = blobRef.current;
 
 		if (!element || !blob) return;
@@ -95,7 +98,9 @@ export const DirectionalButton: React.FC<DirectionalButtonProps> = ({
 				{ side: "left", dist: x },
 				{ side: "right", dist: rect.width - x },
 			];
-			const closestSide = sides.reduce((prev, curr) => (prev.dist < curr.dist ? prev : curr));
+			const closestSide = sides.reduce((prev, curr) =>
+				prev.dist < curr.dist ? prev : curr,
+			);
 
 			let startX = x;
 			let startY = y;
@@ -137,7 +142,9 @@ export const DirectionalButton: React.FC<DirectionalButtonProps> = ({
 				{ side: "left", dist: x },
 				{ side: "right", dist: rect.width - x },
 			];
-			const closestSide = sides.reduce((prev, curr) => (prev.dist < curr.dist ? prev : curr));
+			const closestSide = sides.reduce((prev, curr) =>
+				prev.dist < curr.dist ? prev : curr,
+			);
 
 			let endX = x;
 			let endY = y;
@@ -161,7 +168,9 @@ export const DirectionalButton: React.FC<DirectionalButtonProps> = ({
 		};
 
 		// Invalidate cached rect on resize (rare, cheap)
-		const handleResize = () => { cachedRect = null; };
+		const handleResize = () => {
+			cachedRect = null;
+		};
 
 		element.addEventListener("mouseenter", handleMouseEnter);
 		// passive: true tells the browser this handler never calls preventDefault,
@@ -214,14 +223,23 @@ export const DirectionalButton: React.FC<DirectionalButtonProps> = ({
 	if ("href" in props && props.href) {
 		const { href, ...anchorProps } = props as AnchorProps;
 		return (
-			<Link href={href} className={sharedClasses} ref={anchorRef} {...anchorProps}>
+			<Link
+				href={href}
+				className={sharedClasses}
+				ref={anchorRef}
+				{...anchorProps}
+			>
 				{content}
 			</Link>
 		);
 	}
 
 	return (
-		<button ref={buttonRef} className={sharedClasses} {...(props as ButtonProps)}>
+		<button
+			ref={buttonRef}
+			className={sharedClasses}
+			{...(props as ButtonProps)}
+		>
 			{content}
 		</button>
 	);

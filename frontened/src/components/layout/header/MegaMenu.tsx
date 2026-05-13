@@ -6,7 +6,6 @@ import type React from "react";
 import { useState } from "react";
 import { DesktopSidebarPreview } from "../sidebar/MenuSidebarPreview";
 
-/* ── Types ── */
 export interface MenuItem {
 	name: string;
 	price: string;
@@ -22,7 +21,6 @@ export interface MenuCategory {
 	items: MenuItem[];
 }
 
-/* ── Data ── */
 export const MENU_CATEGORIES: MenuCategory[] = [
 	{
 		id: "starters",
@@ -182,7 +180,8 @@ export const MENU_CATEGORIES: MenuCategory[] = [
 				name: "Chocolate Banana French Toast",
 				price: "$12",
 				image: "/images/foods/food_1.jpg",
-				description: "Indulgent thick-cut brioche French toast layered with rich chocolate.",
+				description:
+					"Indulgent thick-cut brioche French toast layered with rich chocolate.",
 				rating: 5,
 				href: "/menu/desserts/chocolate-banana-french-toast",
 			},
@@ -190,7 +189,8 @@ export const MENU_CATEGORIES: MenuCategory[] = [
 				name: "Pancake",
 				price: "$11",
 				image: "/images/foods/food_3.jpg",
-				description: "Classic, perfectly fluffy buttermilk pancakes served with premium maple syrup.",
+				description:
+					"Classic, perfectly fluffy buttermilk pancakes served with premium maple syrup.",
 				rating: 5,
 				href: "/menu/desserts/pancake",
 			},
@@ -198,7 +198,6 @@ export const MENU_CATEGORIES: MenuCategory[] = [
 	},
 ];
 
-/* ── MenuItemCard sub-component ── */
 interface MenuItemCardProps {
 	item: MenuItem;
 	isActive: boolean;
@@ -219,12 +218,16 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
 			onMouseEnter={() => onHover(item)}
 			onFocus={() => onHover(item)}
 			className={`group w-full flex items-center gap-3 p-1.5 -mx-1.5 transition-all duration-150 text-left ${
-				isActive ? "bg-slate-100 text-slate-900" : "hover:bg-slate-50 hover:text-slate-900"
+				isActive
+					? "bg-slate-100 text-slate-900"
+					: "hover:bg-slate-50 hover:text-slate-900"
 			}`}
 		>
 			<div
 				className={`relative w-10 h-10 flex-shrink-0 overflow-hidden border transition-colors ${
-					isActive ? "border-slate-200" : "border-transparent group-hover:border-slate-200"
+					isActive
+						? "border-slate-200"
+						: "border-transparent group-hover:border-slate-200"
 				}`}
 			>
 				<Image
@@ -264,7 +267,6 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
 	</li>
 );
 
-/* ── MegaMenu panel ── */
 interface MegaMenuProps {
 	isOpen: boolean;
 	onMouseEnter: () => void;
@@ -297,14 +299,17 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
 			}`}
 		>
 			<div className="w-full flex">
-				{/* ── Categories ── */}
-				<div className="flex-1 px-6 sm:px-12 py-8 min-w-0">
+				<section
+					aria-label="Menu Categories Grid"
+					className="flex-1 px-6 sm:px-12 py-8 min-w-0"
+				>
+					<h2 className="sr-only">Menu Categories</h2>
 					<div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-200">
 						<p className="text-[11px] font-bold tracking-[0.2em] uppercase text-gray-500">
 							OUR MENU
 						</p>
 						<Link
-							href="#"
+							href="/menu"
 							tabIndex={isOpen ? 0 : -1}
 							className="text-xs font-bold uppercase tracking-widest underline decoration-1 underline-offset-4 hover:text-[#D4AF37] transition-colors duration-150"
 						>
@@ -332,9 +337,8 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
 							</div>
 						))}
 					</div>
-				</div>
+				</section>
 
-				{/* ── Desktop Preview Sidebar ── */}
 				<DesktopSidebarPreview item={activeItem} />
 			</div>
 		</div>

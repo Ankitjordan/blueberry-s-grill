@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
 import dynamic from "next/dynamic";
+import React from "react";
 import { DotPattern } from "@/components/ui/DotPattern";
 
 const FOOD_SECTIONS = [
@@ -51,18 +51,10 @@ const FOOD_SECTIONS = [
   },
 ] as const;
 
-/**
- * ExploreFoodScrollController is a heavy GSAP + ScrollTrigger component.
- * Lazy-loading it:
- * 1. Removes GSAP ScrollTrigger from the initial bundle
- * 2. Only loads after the above-fold header is painted
- * 3. The loading fallback maintains the correct section height so there's
- *    no layout shift (CLS stays 0)
- */
 const ExploreFoodScrollController = dynamic(
   () =>
     import("./ExploreFoodScrollController").then(
-      (m) => m.ExploreFoodScrollController
+      (m) => m.ExploreFoodScrollController,
     ),
   {
     ssr: false,
@@ -78,7 +70,7 @@ const ExploreFoodScrollController = dynamic(
         />
       );
     },
-  }
+  },
 );
 
 export const ExploreFoodSection = () => {

@@ -150,7 +150,7 @@ func (s *AgentService) ProcessMessage(ctx context.Context, userMessage string, e
 		eventCh <- SSEEvent{Type: "error", Data: map[string]string{"message": "API key not configured"}}
 		return fmt.Errorf("GEMINI_API_KEY not set")
 	}
-	fmt.Printf("[AgentService] GEMINI_API_KEY loaded (len=%d)\n", len(apiKey))
+	fmt.Println("[AgentService] GEMINI_API_KEY loaded successfully")
 
 	// Step 1: Understanding request
 	eventCh <- SSEEvent{Type: "step", Data: AgentStep{Step: "Understanding your request...", Status: "active"}}

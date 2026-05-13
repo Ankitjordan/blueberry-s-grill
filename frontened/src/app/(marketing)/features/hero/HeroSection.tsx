@@ -1,11 +1,10 @@
 "use client";
 
-import Image from "next/image";
-import React, { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
+import Image from "next/image";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useTransitionNavigation } from "@/components/transition-provider";
 
-/* ─── Slide definitions ────────────────────────────────────────────── */
 const SLIDES = [
   {
     id: "burger",
@@ -20,8 +19,16 @@ const SLIDES = [
     imageAlt: "Blueberry's Smash Burger",
     description:
       "Hand-smashed Angus beef, melted American cheese, house pickles, and our secret blueberry-chipotle sauce — all stacked sky-high on a toasted brioche bun.",
-    primaryCta: { label: "Order Now", route: "/menu/mains", transition: "THE MAINS" },
-    secondaryCta: { label: "View Full Menu", route: "/menu", transition: "THE MENU" },
+    primaryCta: {
+      label: "Order Now",
+      route: "/menu/mains",
+      transition: "THE MAINS",
+    },
+    secondaryCta: {
+      label: "View Full Menu",
+      route: "/menu",
+      transition: "THE MENU",
+    },
     stats: [
       { value: "100%", label: "Angus Beef" },
       { value: "4.8★", label: "Guest Rating" },
@@ -30,8 +37,12 @@ const SLIDES = [
     ringColor: "rgba(251,191,36,0.06)",
     particleColor: "rgba(251,191,36,0.45)",
     gridColor: "rgba(251,191,36,0.8)",
-    glowBg: "radial-gradient(circle, rgba(251,191,36,0.5) 0%, rgba(180,83,9,0.22) 45%, transparent 70%)",
-    imageSize: { w: "clamp(440px, 55vw, 820px)", h: "clamp(520px, 68vw, 980px)" },
+    glowBg:
+      "radial-gradient(circle, rgba(251,191,36,0.5) 0%, rgba(180,83,9,0.22) 45%, transparent 70%)",
+    imageSize: {
+      w: "clamp(440px, 55vw, 820px)",
+      h: "clamp(520px, 68vw, 980px)",
+    },
   },
   {
     id: "drink",
@@ -47,8 +58,16 @@ const SLIDES = [
     imageAlt: "Blueberry's Signature Grape Drink",
     description:
       "Our signature Blueberry's Grape Drink — house-blended from hand-picked deep-violet grapes, served ice-cold in our frosted mason jar. Every sip a moment worth remembering.",
-    primaryCta: { label: "Order Now", route: "/menu/beverages", transition: "THE BEVERAGES" },
-    secondaryCta: { label: "View Full Menu", route: "/menu", transition: "THE MENU" },
+    primaryCta: {
+      label: "Order Now",
+      route: "/menu/beverages",
+      transition: "THE BEVERAGES",
+    },
+    secondaryCta: {
+      label: "View Full Menu",
+      route: "/menu",
+      transition: "THE MENU",
+    },
     stats: [
       { value: "100%", label: "Natural Grapes" },
       { value: "4.9★", label: "Guest Rating" },
@@ -57,8 +76,12 @@ const SLIDES = [
     ringColor: "rgba(124,58,237,0.07)",
     particleColor: "rgba(124,58,237,0.2)",
     gridColor: "rgba(124,58,237,0.4)",
-    glowBg: "radial-gradient(circle, rgba(192,132,252,0.35) 0%, rgba(124,58,237,0.12) 45%, transparent 70%)",
-    imageSize: { w: "clamp(480px, 58vw, 860px)", h: "clamp(560px, 70vw, 1020px)" },
+    glowBg:
+      "radial-gradient(circle, rgba(192,132,252,0.35) 0%, rgba(124,58,237,0.12) 45%, transparent 70%)",
+    imageSize: {
+      w: "clamp(480px, 58vw, 860px)",
+      h: "clamp(560px, 70vw, 1020px)",
+    },
   },
   {
     id: "oats",
@@ -74,8 +97,16 @@ const SLIDES = [
     imageAlt: "Blueberry's Golden Oats Dessert",
     description:
       "Slow-cooked golden oats layered with house-made caramel drizzle, toasted almonds, and a dusting of cinnamon spice. Comfort in every spoonful — wholesome, indulgent, and impossible to put down.",
-    primaryCta: { label: "Order Now", route: "/menu/desserts", transition: "THE DESSERTS" },
-    secondaryCta: { label: "View Full Menu", route: "/menu", transition: "THE MENU" },
+    primaryCta: {
+      label: "Order Now",
+      route: "/menu/desserts",
+      transition: "THE DESSERTS",
+    },
+    secondaryCta: {
+      label: "View Full Menu",
+      route: "/menu",
+      transition: "THE MENU",
+    },
     stats: [
       { value: "Slow", label: "Cooked" },
       { value: "4.8★", label: "Guest Rating" },
@@ -84,8 +115,12 @@ const SLIDES = [
     ringColor: "rgba(180,83,9,0.08)",
     particleColor: "rgba(180,83,9,0.25)",
     gridColor: "rgba(180,83,9,0.5)",
-    glowBg: "radial-gradient(circle, rgba(245,158,11,0.3) 0%, rgba(180,83,9,0.12) 45%, transparent 70%)",
-    imageSize: { w: "clamp(440px, 55vw, 820px)", h: "clamp(520px, 68vw, 980px)" },
+    glowBg:
+      "radial-gradient(circle, rgba(245,158,11,0.3) 0%, rgba(180,83,9,0.12) 45%, transparent 70%)",
+    imageSize: {
+      w: "clamp(440px, 55vw, 820px)",
+      h: "clamp(520px, 68vw, 980px)",
+    },
   },
   {
     id: "carpaccio",
@@ -100,8 +135,16 @@ const SLIDES = [
     imageAlt: "Blueberry's Fresh Carpaccio Starter",
     description:
       "Delicate slices fanned to perfection — dressed with house citrus vinaigrette, shaved cucumber ribbons, crumbled feta, and a scatter of peppery microgreens. Light, vibrant, unforgettable.",
-    primaryCta: { label: "Order Now", route: "/menu/starters", transition: "THE STARTERS" },
-    secondaryCta: { label: "View Full Menu", route: "/menu", transition: "THE MENU" },
+    primaryCta: {
+      label: "Order Now",
+      route: "/menu/starters",
+      transition: "THE STARTERS",
+    },
+    secondaryCta: {
+      label: "View Full Menu",
+      route: "/menu",
+      transition: "THE MENU",
+    },
     stats: [
       { value: "Fresh", label: "Daily Sourced" },
       { value: "4.8★", label: "Guest Rating" },
@@ -110,8 +153,12 @@ const SLIDES = [
     ringColor: "rgba(249,115,22,0.06)",
     particleColor: "rgba(249,115,22,0.4)",
     gridColor: "rgba(251,146,60,0.8)",
-    glowBg: "radial-gradient(circle, rgba(249,115,22,0.45) 0%, rgba(194,65,12,0.2) 45%, transparent 70%)",
-    imageSize: { w: "clamp(420px, 52vw, 800px)", h: "clamp(500px, 65vw, 960px)" },
+    glowBg:
+      "radial-gradient(circle, rgba(249,115,22,0.45) 0%, rgba(194,65,12,0.2) 45%, transparent 70%)",
+    imageSize: {
+      w: "clamp(420px, 52vw, 800px)",
+      h: "clamp(500px, 65vw, 960px)",
+    },
   },
   {
     id: "avocado",
@@ -126,8 +173,16 @@ const SLIDES = [
     imageAlt: "Blueberry's Spiced Avocado Dish",
     description:
       "Halved Hass avocados dusted with smoked paprika, everything-bagel seasoning, and crowned with a tangle of fresh microgreens. Clean energy, bold flavour — zero compromise.",
-    primaryCta: { label: "Order Now", route: "/menu/starters", transition: "THE STARTERS" },
-    secondaryCta: { label: "View Full Menu", route: "/menu", transition: "THE MENU" },
+    primaryCta: {
+      label: "Order Now",
+      route: "/menu/starters",
+      transition: "THE STARTERS",
+    },
+    secondaryCta: {
+      label: "View Full Menu",
+      route: "/menu",
+      transition: "THE MENU",
+    },
     stats: [
       { value: "100%", label: "Plant Based" },
       { value: "4.9★", label: "Guest Rating" },
@@ -136,8 +191,12 @@ const SLIDES = [
     ringColor: "rgba(74,222,128,0.06)",
     particleColor: "rgba(74,222,128,0.4)",
     gridColor: "rgba(74,222,128,0.8)",
-    glowBg: "radial-gradient(circle, rgba(34,197,94,0.45) 0%, rgba(21,128,61,0.2) 45%, transparent 70%)",
-    imageSize: { w: "clamp(420px, 52vw, 800px)", h: "clamp(500px, 65vw, 960px)" },
+    glowBg:
+      "radial-gradient(circle, rgba(34,197,94,0.45) 0%, rgba(21,128,61,0.2) 45%, transparent 70%)",
+    imageSize: {
+      w: "clamp(420px, 52vw, 800px)",
+      h: "clamp(500px, 65vw, 960px)",
+    },
   },
 ] as const;
 
@@ -156,9 +215,18 @@ const PARTICLES = [
 ];
 
 const TICKER_ITEMS = [
-  "Signature Beverages", "★", "Crafted with Passion", "★",
-  "House-Blended Recipes", "★", "The Grape Collection", "★",
-  "Blueberry's Grill", "★", "Premium Refreshment", "★",
+  "Signature Beverages",
+  "★",
+  "Crafted with Passion",
+  "★",
+  "House-Blended Recipes",
+  "★",
+  "The Grape Collection",
+  "★",
+  "Blueberry's Grill",
+  "★",
+  "Premium Refreshment",
+  "★",
 ];
 
 const SLIDE_DURATION = 5500;
@@ -202,14 +270,14 @@ function SlideImage({
             repeat: -1,
           });
         },
-      }
+      },
     );
 
     return () => {
       floatRef.current?.kill();
       gsap.killTweensOf(el);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -219,7 +287,7 @@ function SlideImage({
         position: "absolute",
         width: slide.imageSize.w,
         height: slide.imageSize.h,
-        opacity: 0, /* GSAP drives this */
+        opacity: 0 /* GSAP drives this */,
       }}
     >
       <Image
@@ -270,7 +338,7 @@ export function HeroSection() {
             repeat: -1,
           });
         },
-      }
+      },
     );
   }, []);
 
@@ -286,13 +354,13 @@ export function HeroSection() {
       /* unlock after entrance completes */
       setTimeout(() => setIsLocked(false), 950);
     },
-    [activeIdx, isLocked, startGlow]
+    [activeIdx, isLocked, startGlow],
   );
 
   /* ── initial glow on mount ─────────────────────────────────────── */
   useEffect(() => {
     startGlow();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /* ── auto-advance ──────────────────────────────────────────────── */
@@ -326,7 +394,12 @@ export function HeroSection() {
           <div
             key={i}
             className="absolute rounded-full border"
-            style={{ width: size, height: size, borderColor: slide.ringColor, transition: "border-color 0.8s ease" }}
+            style={{
+              width: size,
+              height: size,
+              borderColor: slide.ringColor,
+              transition: "border-color 0.8s ease",
+            }}
           />
         ))}
       </div>
@@ -337,7 +410,10 @@ export function HeroSection() {
           key={i}
           className="absolute rounded-full pointer-events-none z-0"
           style={{
-            width: p.w, height: p.h, top: p.top, left: p.left,
+            width: p.w,
+            height: p.h,
+            top: p.top,
+            left: p.left,
             background: slide.particleColor,
             animation: `heroFloat ${p.dur}s ${p.delay}s ease-in-out infinite alternate`,
             transition: "background 0.8s ease",
@@ -356,7 +432,6 @@ export function HeroSection() {
 
       {/* ── MAIN CONTENT ── */}
       <div className="relative z-10 flex-1 flex flex-col lg:flex-row items-center justify-between gap-10 px-6 sm:px-10 lg:px-16 xl:px-24 pt-28 pb-0 max-w-[1600px] mx-auto w-full">
-
         {/* ── LEFT ── */}
         <div
           key={`text-${slide.id}`}
@@ -364,8 +439,14 @@ export function HeroSection() {
         >
           {/* Tag badge */}
           <div className="inline-flex items-center gap-2.5 w-fit">
-            <span className="h-px w-8" style={{ background: slide.accentHex }} />
-            <span className="text-[10px] font-black uppercase tracking-[0.35em]" style={{ color: slide.accentHex }}>
+            <span
+              className="h-px w-8"
+              style={{ background: slide.accentHex }}
+            />
+            <span
+              className="text-[10px] font-black uppercase tracking-[0.35em]"
+              style={{ color: slide.accentHex }}
+            >
               {slide.tag}
             </span>
             <span
@@ -381,8 +462,20 @@ export function HeroSection() {
           </div>
 
           {/* Headline */}
-          <h1 className="font-black uppercase tracking-tighter leading-[0.85]" style={{ fontSize: "clamp(3.2rem, 8.5vw, 9rem)" }}>
-            <span className="block" style={{ color: (slide as {headlineColor?: string}).headlineColor ?? "#ffffff" }}>{slide.headline[0]}</span>
+          <h1
+            className="font-black uppercase tracking-tighter leading-[0.85]"
+            style={{ fontSize: "clamp(3.2rem, 8.5vw, 9rem)" }}
+          >
+            <span
+              className="block"
+              style={{
+                color:
+                  (slide as { headlineColor?: string }).headlineColor ??
+                  "#ffffff",
+              }}
+            >
+              {slide.headline[0]}
+            </span>
             <span
               className="block"
               style={{
@@ -394,13 +487,25 @@ export function HeroSection() {
             >
               {slide.headline[1]}
             </span>
-            <span className="block" style={{ color: (slide as {headlineColor?: string}).headlineColor ? `${(slide as {headlineColor?: string}).headlineColor}cc` : "rgba(255,255,255,0.9)" }}>{slide.headline[2]}</span>
+            <span
+              className="block"
+              style={{
+                color: (slide as { headlineColor?: string }).headlineColor
+                  ? `${(slide as { headlineColor?: string }).headlineColor}cc`
+                  : "rgba(255,255,255,0.9)",
+              }}
+            >
+              {slide.headline[2]}
+            </span>
           </h1>
 
           {/* Description */}
           <p
             className="font-medium leading-relaxed max-w-md"
-            style={{ fontSize: "clamp(0.95rem, 1.5vw, 1.15rem)", color: `rgba(${slide.accentRgb}, 0.6)` }}
+            style={{
+              fontSize: "clamp(0.95rem, 1.5vw, 1.15rem)",
+              color: `rgba(${slide.accentRgb}, 0.6)`,
+            }}
           >
             {slide.description}
           </p>
@@ -408,7 +513,12 @@ export function HeroSection() {
           {/* CTAs */}
           <div className="flex flex-wrap items-center gap-4">
             <button
-              onClick={() => navigateWithTransition(slide.primaryCta.route, slide.primaryCta.transition)}
+              onClick={() =>
+                navigateWithTransition(
+                  slide.primaryCta.route,
+                  slide.primaryCta.transition,
+                )
+              }
               className="group relative overflow-hidden px-8 py-4 rounded-full font-black text-sm uppercase tracking-wider text-black transition-all duration-300 hover:scale-105 active:scale-95"
               style={{
                 background: `linear-gradient(135deg, ${slide.gradientColors[0]}, ${slide.gradientColors[1]}, ${slide.gradientColors[2]})`,
@@ -418,18 +528,28 @@ export function HeroSection() {
               <span className="relative z-10">{slide.primaryCta.label}</span>
               <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{ background: `linear-gradient(135deg, ${slide.gradientColors[0]}, ${slide.gradientColors[1]})` }}
+                style={{
+                  background: `linear-gradient(135deg, ${slide.gradientColors[0]}, ${slide.gradientColors[1]})`,
+                }}
               />
             </button>
 
             <button
-              onClick={() => navigateWithTransition(slide.secondaryCta.route, slide.secondaryCta.transition)}
+              onClick={() =>
+                navigateWithTransition(
+                  slide.secondaryCta.route,
+                  slide.secondaryCta.transition,
+                )
+              }
               className="flex items-center gap-3 font-bold text-sm uppercase tracking-wider transition-colors duration-300"
               style={{ color: `rgba(${slide.accentRgb}, 0.8)` }}
             >
               <span
                 className="w-10 h-10 rounded-full border flex items-center justify-center text-xs"
-                style={{ background: `rgba(${slide.accentRgb}, 0.1)`, borderColor: `rgba(${slide.accentRgb}, 0.3)` }}
+                style={{
+                  background: `rgba(${slide.accentRgb}, 0.1)`,
+                  borderColor: `rgba(${slide.accentRgb}, 0.3)`,
+                }}
               >
                 →
               </span>
@@ -452,7 +572,10 @@ export function HeroSection() {
                 >
                   {s.value}
                 </span>
-                <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: `rgba(${slide.accentRgb}, 0.5)` }}>
+                <span
+                  className="text-[10px] font-bold uppercase tracking-widest"
+                  style={{ color: `rgba(${slide.accentRgb}, 0.5)` }}
+                >
                   {s.label}
                 </span>
               </div>
@@ -463,9 +586,15 @@ export function HeroSection() {
           <div className="flex items-center gap-5 pt-2">
             <button
               aria-label="Previous slide"
-              onClick={() => goTo((activeIdx - 1 + SLIDES.length) % SLIDES.length)}
+              onClick={() =>
+                goTo((activeIdx - 1 + SLIDES.length) % SLIDES.length)
+              }
               className="w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
-              style={{ background: `rgba(${slide.accentRgb}, 0.08)`, borderColor: `rgba(${slide.accentRgb}, 0.3)`, color: slide.accentHex }}
+              style={{
+                background: `rgba(${slide.accentRgb}, 0.08)`,
+                borderColor: `rgba(${slide.accentRgb}, 0.3)`,
+                color: slide.accentHex,
+              }}
             >
               ←
             </button>
@@ -481,7 +610,10 @@ export function HeroSection() {
                   style={{
                     width: i === activeIdx ? 28 : 8,
                     height: 8,
-                    background: i === activeIdx ? slide.accentHex : `rgba(${slide.accentRgb}, 0.3)`,
+                    background:
+                      i === activeIdx
+                        ? slide.accentHex
+                        : `rgba(${slide.accentRgb}, 0.3)`,
                   }}
                 />
               ))}
@@ -491,7 +623,11 @@ export function HeroSection() {
               aria-label="Next slide"
               onClick={() => goTo((activeIdx + 1) % SLIDES.length)}
               className="w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95"
-              style={{ background: `rgba(${slide.accentRgb}, 0.08)`, borderColor: `rgba(${slide.accentRgb}, 0.3)`, color: slide.accentHex }}
+              style={{
+                background: `rgba(${slide.accentRgb}, 0.08)`,
+                borderColor: `rgba(${slide.accentRgb}, 0.3)`,
+                color: slide.accentHex,
+              }}
             >
               →
             </button>
@@ -542,12 +678,18 @@ export function HeroSection() {
           transition: "border-color 0.8s ease",
         }}
       >
-        <div className="flex gap-12 whitespace-nowrap" style={{ animation: "marquee 22s linear infinite" }}>
+        <div
+          className="flex gap-12 whitespace-nowrap"
+          style={{ animation: "marquee 22s linear infinite" }}
+        >
           {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
             <span
               key={i}
               className="text-[10px] font-black uppercase tracking-[0.3em] flex-shrink-0"
-              style={{ color: `rgba(${slide.accentRgb}, 0.4)`, transition: "color 0.8s ease" }}
+              style={{
+                color: `rgba(${slide.accentRgb}, 0.4)`,
+                transition: "color 0.8s ease",
+              }}
             >
               {item}
             </span>
