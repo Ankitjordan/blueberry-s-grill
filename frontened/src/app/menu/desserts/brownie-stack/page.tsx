@@ -1,7 +1,7 @@
-import { MenuProductView } from "../../components/menu-product-view";
-import { MenuInfoRating } from "../../components/menu-info-rating";
+import { MenuProductView } from "../../features/product-view/menu-product-view";
+import { MenuInfoRating } from "../../features/product-view/menu-info-rating";
 import { DESSERT_DATA } from "../data";
-import { MenuIngredients } from "../../components/menu-ingredients";
+import { MenuIngredients } from "../../features/product-view/menu-ingredients";
 export default function BrownieStackPage() {
   return (
     <>

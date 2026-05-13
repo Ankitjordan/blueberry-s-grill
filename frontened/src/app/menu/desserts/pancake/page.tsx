@@ -1,5 +1,5 @@
-import { MenuProductView } from "../../components/menu-product-view";
-import { MenuInfoRating } from "../../components/menu-info-rating";
+import { MenuProductView } from "../../features/product-view/menu-product-view";
+import { MenuInfoRating } from "../../features/product-view/menu-info-rating";
 import { DESSERT_DATA } from "../data";
 
 export default function PancakePage() {

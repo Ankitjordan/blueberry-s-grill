@@ -16,6 +16,8 @@ export const DESSERT_DATA: DessertItem[] = [
     name: "Nutella Waffle",
     href: "/menu/desserts",
     videoSrc: "/videos/desserts/Dish_rotating_on_plate_202605052244.mp4",
+    rating: 4.8,
+    tags: ["Best Seller", "Signature", "Classic"],
     ingredients: [
       "Premium Nutella",
       "Hand-crafted Belgian Waffle",
@@ -72,6 +74,8 @@ export const DESSERT_DATA: DessertItem[] = [
     name: "Berry Cream Waffle",
     href: "/menu/desserts/berry-cream-waffle",
     videoSrc: "/videos/desserts/Berry-Cream-Waffle.mp4",
+    rating: 4.7,
+    tags: ["Signature", "Fresh", "Classic"],
     ingredients: [
       "Fresh Wild Berries",
       "Velvety Mascarpone Cream",
@@ -86,6 +90,8 @@ export const DESSERT_DATA: DessertItem[] = [
     name: "Chocolate Banana French Toast",
     href: "/menu/desserts/chocolate-banana-french-toast",
     videoSrc: "/videos/desserts/Chocolate-Banana-French-Toast.mp4",
+    rating: 4.8,
+    tags: ["Best Seller", "Signature", "Gourmet"],
     ingredients: [
       "Brioche Bread",
       "Caramelized Bananas",
@@ -100,6 +106,8 @@ export const DESSERT_DATA: DessertItem[] = [
     name: "Pancake",
     href: "/menu/desserts/pancake",
     videoSrc: "/videos/desserts/pancake.mp4",
+    rating: 4.6,
+    tags: ["Classic", "Breakfast Favorite", "Signature"],
     ingredients: [
       "Fluffy Buttermilk Batter",
       "Clarified Butter",
