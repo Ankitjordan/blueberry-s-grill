@@ -1,0 +1,3 @@
+[project]
+name = "blueberrys-grill"
+domains = ["blueberry-s-grill.vercel.app"]

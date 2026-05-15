@@ -107,6 +107,8 @@ export const RetroHeader: React.FC = () => {
 							alt="Blueberry's Grill Logo"
 							width={32}
 							height={32}
+							priority
+							fetchPriority="high"
 						/>
 						<span className="font-black text-sm md:text-base tracking-tight uppercase">
 							BLUEBERRY&apos;S{" "}

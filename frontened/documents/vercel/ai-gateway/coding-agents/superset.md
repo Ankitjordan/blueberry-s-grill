@@ -1,0 +1,85 @@
+Menu
+
+# Superset
+
+Last updated March 6, 2026
+
+[Superset](https://superset.sh) is a terminal-first AI coding agent that works with CLI agents like Claude Code, Codex, and Cursor Agents. Here's how to use Superset with Vercel AI Gateway.
+
+## [Terminal configuration](#terminal-configuration)
+
+1. ### [Download Superset](#download-superset)
+
+   Download and install Superset by following the [installation guide](https://docs.superset.sh/installation). If you already have Superset installed, continue to the next step.
+2. ### [Create an API key](#create-an-api-key)
+
+   Go to the [AI Gateway](https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai-gateway&title=Go+to+AI+Gateway) section in the Vercel dashboard sidebar and click API keys to create a new API key.
+3. ### [Configure environment variables](#configure-environment-variables)
+
+   Terminal-based agents in Superset work automatically when you configure your environment. Add the following to your shell configuration file, for example in `~/.zshrc` or `~/.bashrc`:
+
+   ```
+   export ANTHROPIC_BASE_URL="https://ai-gateway.vercel.sh"
+   export ANTHROPIC_AUTH_TOKEN="your-ai-gateway-api-key"
+   export ANTHROPIC_API_KEY=""
+   ```
+
+   Setting `ANTHROPIC_API_KEY` to an empty string is important. This prevents
+   direct Anthropic authentication and ensures requests route through AI Gateway.
+4. ### [Restart your terminal session](#restart-your-terminal-session)
+
+   Open a new terminal window or run `source ~/.zshrc` or `source ~/.bashrc` to apply the changes.
+
+   Your terminal-based Superset agents now route requests through Vercel AI Gateway.
+
+## [Chat UI configuration](#chat-ui-configuration)
+
+For the Superset Chat UI, configure AI Gateway through the settings panel:
+
+1. ### [Download Superset](#download-superset)
+
+   Download and install Superset by following the [installation guide](https://docs.superset.sh/installation).
+2. ### [Open Superset](#open-superset)
+
+   Open the Superset app.
+3. ### [Open the model picker](#open-the-model-picker)
+
+   Open the model picker at the bottom of the chat interface.
+4. ### [Open provider settings](#open-provider-settings)
+
+   Click the key icon next to Anthropic, then select Use API key.
+5. ### [Create an API key](#create-an-api-key)
+
+   Go to the [AI Gateway](https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai-gateway&title=Go+to+AI+Gateway) section in the Vercel dashboard sidebar and click API keys to create a new API key.
+6. ### [Add environment variables](#add-environment-variables)
+
+   Enter the following environment variables (one per line, `VAR_NAME=value` format):
+
+   ```
+   ANTHROPIC_BASE_URL=https://ai-gateway.vercel.sh
+   ANTHROPIC_AUTH_TOKEN=your-ai-gateway-api-key
+   ANTHROPIC_API_KEY=
+   ```
+7. ### [Save settings](#save-settings)
+
+   Click Save settings to apply your configuration.
+
+   Your Superset requests now route through Vercel AI Gateway.
+
+## [Workspace-specific configuration](#workspace-specific-configuration)
+
+You can also set environment variables per workspace through Settings > Env in Superset. This is useful when you need different configurations for different projects.
+
+## [Monitoring usage](#monitoring-usage)
+
+Once configured, view your usage in the [AI Gateway](https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai-gateway&title=Go+to+AI+Gateway) section of the Vercel dashboard:
+
+* Spend tracking: See costs across all your Superset sessions
+* Model usage: Track which models your agents use
+* Request traces: Debug issues with full request and response logs
+
+See the [observability documentation](/docs/ai-gateway/capabilities/observability) for more details.
+
+---
+
+Was this helpful?

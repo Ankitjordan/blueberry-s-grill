@@ -1,0 +1,271 @@
+Menu
+
+# vercel microfrontends
+
+Last updated March 17, 2026
+
+The `vercel microfrontends` command (alias: `vercel mf`) provides utilities for managing Vercel Microfrontends from the CLI.
+
+To learn more about the architecture and config format, see
+[Microfrontends on Vercel](/docs/microfrontends).
+For a polyrepo setup walkthrough, see
+[Accessing the configuration file](/docs/microfrontends/local-development#accessing-the-configuration-file).
+
+## [Subcommands](#subcommands)
+
+| Subcommand | Description |
+| --- | --- |
+| [`create-group`](#create-group) | Create a new microfrontends group |
+| [`add-to-group`](#add-to-group) | Add the current project to a group |
+| [`remove-from-group`](#remove-from-group) | Remove the current project from its group |
+| [`delete-group`](#delete-group) | Delete a microfrontends group |
+| [`inspect-group`](#inspect-group) | Inspect a microfrontends group and its projects |
+| [`pull`](#pull) | Pull remote configuration for local development |
+
+## [create-group](#create-group)
+
+Create a new microfrontends group to compose multiple projects into one cohesive application with shared routing. The group is created in the current scope (team or user). The command is interactive if options are omitted.
+
+terminal
+
+```
+vercel microfrontends create-group [options]
+```
+
+### [Options](#options)
+
+| Option | Description |
+| --- | --- |
+| `--name` | Name of the microfrontends group |
+| `--project` | Project name to include (repeatable) |
+| `--default-app` | Project name for the default application |
+| `--default-route` | Default route for the default application |
+| `--project-default-route` | Default route for a non-default project, in the format `<project>=<route>` (repeatable) |
+| `--yes` | Skip creation confirmation prompt |
+
+### [Examples](#examples)
+
+#### [Create a group interactively](#create-a-group-interactively)
+
+terminal
+
+```
+vercel microfrontends create-group
+```
+
+#### [Create a group with flags](#create-a-group-with-flags)
+
+terminal
+
+```
+vercel mf create-group --name="My Group" --project=web --project=docs --default-app=web --project-default-route=docs=/docs --yes
+```
+
+## [add-to-group](#add-to-group)
+
+Add the current project to a microfrontends group as a child application. The project can then be independently deployed as part of the group. The command is interactive if options are omitted.
+
+To set a project as the default application, use `create-group` with the `--default-app` option or configure it in the dashboard.
+
+terminal
+
+```
+vercel microfrontends add-to-group [options]
+```
+
+### [Options](#options)
+
+| Option | Description |
+| --- | --- |
+| `--group` | Name of the microfrontends group to add to |
+| `--default-route` | Default route for this project (for example, `/docs`) |
+
+### [Examples](#examples)
+
+#### [Add the current project to a group interactively](#add-the-current-project-to-a-group-interactively)
+
+terminal
+
+```
+vercel microfrontends add-to-group
+```
+
+#### [Add the current project to a group with flags](#add-the-current-project-to-a-group-with-flags)
+
+terminal
+
+```
+vercel mf add-to-group --group="My Group" --default-route=/docs
+```
+
+## [remove-from-group](#remove-from-group)
+
+Remove the current project from its microfrontends group so it's no longer part of the composed application.
+
+You cannot remove the default application from a group using the CLI. To remove the default application, use the dashboard or delete the entire group with `delete-group`.
+
+terminal
+
+```
+vercel microfrontends remove-from-group [options]
+```
+
+### [Options](#options)
+
+| Option | Description |
+| --- | --- |
+| `-y, --yes` | Skip the project-link prompt (does not skip the removal confirmation) |
+
+### [Examples](#examples)
+
+#### [Remove the current project from its group](#remove-the-current-project-from-its-group)
+
+terminal
+
+```
+vercel microfrontends remove-from-group
+```
+
+## [delete-group](#delete-group)
+
+Delete a microfrontends group and all its settings. This action is not reversible.
+
+terminal
+
+```
+vercel microfrontends delete-group [options]
+```
+
+### [Options](#options)
+
+| Option | Description |
+| --- | --- |
+| `--group` | Name or ID of the microfrontends group to delete |
+| `-y, --yes` | Skip the project-link prompt (does not skip the deletion confirmation) |
+
+### [Examples](#examples)
+
+#### [Delete a group interactively](#delete-a-group-interactively)
+
+terminal
+
+```
+vercel microfrontends delete-group
+```
+
+#### [Delete a group with flags](#delete-a-group-with-flags)
+
+terminal
+
+```
+vercel mf delete-group --group="My Group"
+```
+
+## [inspect-group](#inspect-group)
+
+Inspect a microfrontends group and return metadata about the group and its projects. This command is useful for setup automation and scripts.
+
+If you omit `--group`, the command is interactive and lets you select a group. In non-interactive environments, pass `--group`.
+
+terminal
+
+```
+vercel microfrontends inspect-group [options]
+```
+
+### [Options](#options)
+
+| Option | Description |
+| --- | --- |
+| `--group` | Name, slug, or ID of the microfrontends group to inspect |
+| `--config-file-name` | Custom microfrontends config file path/name relative to the default app root (must end with `.json` or `.jsonc`) |
+| `--format` | Output format. Use `json` for machine-readable output |
+
+### [Examples](#examples)
+
+#### [Inspect a group interactively](#inspect-a-group-interactively)
+
+terminal
+
+```
+vercel microfrontends inspect-group
+```
+
+#### [Inspect a group as JSON](#inspect-a-group-as-json)
+
+terminal
+
+```
+vercel mf inspect-group --group="My Group" --format=json
+```
+
+#### [Inspect a group with a custom config filename](#inspect-a-group-with-a-custom-config-filename)
+
+terminal
+
+```
+vercel mf inspect-group --group="My Group" --config-file-name=microfrontends.jsonc --format=json
+```
+
+## [pull](#pull)
+
+Pull the remote microfrontends configuration to your local repository for development.
+
+For a polyrepo setup walkthrough, see
+[Accessing the configuration file](/docs/microfrontends/local-development#accessing-the-configuration-file).
+This subcommand requires Vercel CLI 44.2.2 or newer.
+
+terminal
+
+```
+vercel microfrontends pull [options]
+```
+
+### [Options](#options)
+
+| Option | Description |
+| --- | --- |
+| `--dpl` | Deployment ID or URL to pull configuration from |
+
+### [Examples](#examples)
+
+#### [Pull configuration for the linked project](#pull-configuration-for-the-linked-project)
+
+terminal
+
+```
+vercel microfrontends pull
+```
+
+#### [Pull configuration for a specific deployment](#pull-configuration-for-a-specific-deployment)
+
+terminal
+
+```
+vercel mf pull --dpl dpl_123xyz
+```
+
+## [Global Options](#global-options)
+
+The following [global options](/docs/cli/global-options) can be passed when using the `vercel microfrontends` command:
+
+* [`--cwd`](/docs/cli/global-options#current-working-directory)
+* [`--debug`](/docs/cli/global-options#debug)
+* [`--global-config`](/docs/cli/global-options#global-config)
+* [`--help`](/docs/cli/global-options#help)
+* [`--local-config`](/docs/cli/global-options#local-config)
+* [`--no-color`](/docs/cli/global-options#no-color)
+* [`--scope`](/docs/cli/global-options#scope)
+* [`--token`](/docs/cli/global-options#token)
+
+For more information on global options and their usage, refer to the [options section](/docs/cli/global-options).
+
+---
+
+[Previous
+
+vercel metrics](/docs/cli/metrics)[Next
+
+vercel open](/docs/cli/open)
+
+Was this helpful?

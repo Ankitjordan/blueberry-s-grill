@@ -1,0 +1,32 @@
+# Blueberry's Grill
+
+> Blueberry's Grill is a modern dining destination specializing in handcrafted American cuisine with a gourmet twist. From our signature smash burgers to artisanal desserts, we offer an elegant yet soul-stirring culinary experience across the Carolina coast.
+
+## About
+
+Founded with a vision to blend modern culinary techniques with timeless flavors, Blueberry's Grill has become a staple for food enthusiasts in South Carolina and North Carolina. Our commitment to quality ingredients and artisanal preparation ensures every dish tells a story.
+
+## Contact
+
+- Website: https://blueberry-s-grill.vercel.app
+- Phone: (843) 555-0101
+- Locations: Myrtle Beach, North Myrtle Beach, Wilmington, and London.
+
+## Menu & Highlights
+
+- [Dessert Menu](https://blueberry-s-grill.vercel.app/menu/desserts): Artisanal waffles, brownies, and specialty pancakes.
+- [Signature Smash Burger](https://blueberry-s-grill.vercel.app/): Our world-class burger featured in the hero experience.
+- [Brownie Stack](https://blueberry-s-grill.vercel.app/menu/desserts/brownie-stack): 70% dark chocolate masterpiece with Tahitian vanilla.
+- [Nutella Waffle](https://blueberry-s-grill.vercel.app/menu/desserts): Our best-selling signature dessert.
+
+## Locations
+
+- [Myrtle Beach](https://blueberry-s-grill.vercel.app/locations): Our original oceanfront location.
+- [North Myrtle Beach](https://blueberry-s-grill.vercel.app/locations): A relaxed coastal escape.
+- [Wilmington](https://blueberry-s-grill.vercel.app/locations): Southern hospitality on the Cape Fear riverfront.
+- [London](https://blueberry-s-grill.vercel.app/locations): Our premier international destination.
+
+## Key Information
+
+- [Locations Gallery](https://blueberry-s-grill.vercel.app/locations/gallery): Visual tour of our premium dining spaces.
+- [Our Menu](https://blueberry-s-grill.vercel.app/menu/desserts): Complete list of our current offerings.

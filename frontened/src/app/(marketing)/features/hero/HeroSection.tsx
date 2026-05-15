@@ -697,29 +697,7 @@ export function HeroSection() {
         </div>
       </div>
 
-      <style>{`
-        @keyframes heroFloat {
-          from { transform: translateY(0px) scale(1);    opacity: 0.4; }
-          to   { transform: translateY(-14px) scale(1.15); opacity: 0.7; }
-        }
-        .hero-text-enter {
-          animation: heroTextIn 0.45s ease-out both;
-        }
-        @keyframes heroTextIn {
-          from { opacity: 0; transform: translateY(16px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        .hero-bg-transition {
-          transition: background 0.9s ease;
-        }
-        .hero-progress-bar {
-          animation: heroProgress ${SLIDE_DURATION}ms linear both;
-        }
-        @keyframes heroProgress {
-          from { width: 0%; }
-          to   { width: 100%; }
-        }
-      `}</style>
+      <style>{`@keyframes heroFloat{from{transform:translateY(0) scale(1);opacity:0.4}to{transform:translateY(-14px) scale(1.15);opacity:0.7}}.hero-text-enter{animation:heroTextIn .45s ease-out both}@keyframes heroTextIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}.hero-bg-transition{transition:background .9s ease}.hero-progress-bar{animation:heroProgress ${SLIDE_DURATION}ms linear both}@keyframes heroProgress{from{width:0%}to{width:100%}}`}</style>
     </section>
   );
 }

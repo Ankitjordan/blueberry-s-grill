@@ -1,0 +1,177 @@
+Menu
+
+# Coding Agents
+
+Last updated March 16, 2026
+
+AI coding agents are transforming how developers write, debug, and refactor code. Route these agents through AI Gateway to get a single dashboard for spend tracking, access to any model, and automatic fallbacks, all while using the familiar interfaces of your favorite tools.
+
+## [Why route coding agents here?](#why-route-coding-agents-here)
+
+| Benefit | Without | With |
+| --- | --- | --- |
+| Spend tracking | Separate dashboards per provider | Single unified view |
+| Model access | Limited to agent's default models | 200+ models from all providers |
+| Billing | Multiple invoices, multiple accounts | One Vercel invoice |
+| Reliability | Single point of failure | Automatic provider fallbacks |
+| Observability | Limited or no visibility | Full request traces and metrics |
+
+## [Supported agents](#supported-agents)
+
+### [Claude Code](#claude-code)
+
+[Claude Code](https://docs.anthropic.com/en/docs/claude-code) is Anthropic's agentic coding tool for the terminal. Configure it with environment variables:
+
+```
+export ANTHROPIC_BASE_URL="https://ai-gateway.vercel.sh"
+export ANTHROPIC_API_KEY="your-ai-gateway-api-key"
+```
+
+Once configured, Claude Code works exactly as before, but requests route through the gateway.
+
+See the [Claude Code documentation](/docs/ai-gateway/coding-agents/claude-code) for advanced configuration.
+
+### [OpenAI Codex](#openai-codex)
+
+[OpenAI Codex](https://github.com/openai/codex) is OpenAI's terminal-based coding agent. To connect it to AI Gateway, add the following to its configuration file:
+
+~/.codex/config.toml
+
+```
+[model_providers.vercel]
+name = "Vercel AI Gateway"
+base_url = "https://ai-gateway.vercel.sh/v1"
+env_key = "AI_GATEWAY_API_KEY"
+wire_api = "responses"
+
+[profiles.vercel]
+model_provider = "vercel"
+model = "openai/gpt-5.5"
+```
+
+Then start Codex with the Vercel profile:
+
+```
+codex --profile vercel
+```
+
+For full configuration options, see [Configure OpenAI Codex](/docs/ai-gateway/coding-agents/openai-codex).
+
+### [OpenCode](#opencode)
+
+[OpenCode](https://github.com/opencode-ai/opencode) is an open-source, terminal-based AI coding assistant with native support. Connect directly from within the tool:
+
+```
+opencode
+> /connect
+# Select "Vercel AI Gateway" and enter your API key
+```
+
+OpenCode automatically discovers available models and lets you switch between them on the fly.
+
+See the [OpenCode documentation](/docs/ai-gateway/coding-agents/opencode) for more features.
+
+### [Blackbox AI](#blackbox-ai)
+
+[Blackbox AI](https://blackbox.ai) is a terminal-based CLI for AI-powered code generation and debugging. Configure it with the interactive setup:
+
+```
+blackbox configure
+# Select "Configure Providers", choose "Vercel AI Gateway", and enter your API key
+```
+
+See the [Blackbox AI documentation](/docs/ai-gateway/coding-agents/blackbox) for installation and setup.
+
+### [Cline](#cline)
+
+[Cline](https://cline.bot) is a [VS Code extension](https://marketplace.visualstudio.com/items?itemName=saoudrizwan.claude-dev) that provides autonomous coding assistance. Configure it directly in VS Code:
+
+1. Open the Cline settings panel
+2. Select Vercel AI Gateway as your API Provider
+3. Paste your API key
+4. Choose a model from the auto-populated catalog
+
+Cline tracks detailed metrics including reasoning tokens, cache performance, and latency.
+
+See the [Cline documentation](/docs/ai-gateway/coding-agents/cline) for troubleshooting tips.
+
+### [Roo Code](#roo-code)
+
+[Roo Code](https://roocode.com) is a [VS Code extension](https://marketplace.visualstudio.com/items?itemName=RooVeterinaryInc.roo-cline) that brings AI assistance directly into your editor. Configure it through the settings panel:
+
+1. Click the gear icon in the Roo Code panel
+2. Select Vercel AI Gateway as your provider
+3. Enter your API key
+4. Choose from hundreds of available models
+
+Roo Code includes prompt caching support for Claude and GPT models to reduce costs.
+
+See the [Roo Code documentation](/docs/ai-gateway/coding-agents/roo-code) for setup details.
+
+### [Conductor](#conductor)
+
+[Conductor](https://conductor.build) is a Mac app that lets you run multiple Claude Code agents in parallel, each with an isolated copy of your codebase. Configure it through the settings panel:
+
+1. Go to Settings -> Env
+2. Add the environment variables under Claude Code
+3. Set `ANTHROPIC_BASE_URL` to `https://ai-gateway.vercel.sh`
+
+Conductor lets you review and merge changes from multiple agents in one place.
+
+See the [Conductor documentation](/docs/ai-gateway/coding-agents/conductor) for setup details.
+
+### [Crush](#crush)
+
+[Crush](https://github.com/charmbracelet/crush) is a terminal-based AI coding assistant by Charmbracelet with LSP integration and MCP support. Configure it interactively:
+
+```
+crush
+# Select "Vercel AI Gateway", choose a model, and enter your API Key
+```
+
+See the [Crush documentation](/docs/ai-gateway/coding-agents/crush) for installation options.
+
+### [Superset](#superset)
+
+[Superset](https://superset.sh) is a terminal-first AI coding agent that works with CLI agents like Claude Code, Codex, and Cursor Agents. Configure it with environment variables:
+
+```
+export ANTHROPIC_BASE_URL="https://ai-gateway.vercel.sh"
+export ANTHROPIC_AUTH_TOKEN="your-ai-gateway-api-key"
+export ANTHROPIC_API_KEY=""
+```
+
+Superset also includes a Chat UI with built-in provider configuration.
+
+See the [Superset documentation](/docs/ai-gateway/coding-agents/superset) for Chat UI setup.
+
+## [Getting started](#getting-started)
+
+1. Get an API key: Create one in the [AI Gateway page](https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai-gateway&title=AI+Gateway)
+2. Choose your agent: Pick from Claude Code, OpenAI Codex, OpenCode, Blackbox AI, Cline, Roo Code, Conductor, Crush, or Superset
+3. Configure the connection: Point the agent to `https://ai-gateway.vercel.sh`
+4. Start coding: Use the agent as normal - all requests route through the gateway
+
+## [Monitoring usage](#monitoring-usage)
+
+Once your coding agents are connected, view usage in the [Observability section in the sidebar](https://vercel.com/dashboard/observability):
+
+* Spend by agent: See how much each tool costs
+* Model usage: Track which models your agents use most
+* Request traces: Debug issues with full request/response logs
+
+## [Next steps](#next-steps)
+
+* [Set up Claude Code](/docs/ai-gateway/coding-agents/claude-code)
+* [Configure OpenAI Codex](/docs/ai-gateway/coding-agents/openai-codex) with custom profiles
+* [Try OpenCode](/docs/ai-gateway/coding-agents/opencode) for native integration
+* [Set up Blackbox AI](/docs/ai-gateway/coding-agents/blackbox) CLI for code generation
+* [Configure Cline](/docs/ai-gateway/coding-agents/cline) for autonomous coding assistance
+* [Install Roo Code](/docs/ai-gateway/coding-agents/roo-code) as a VS Code extension
+* [Configure Conductor](/docs/ai-gateway/coding-agents/conductor) for parallel agents
+* [Configure Crush](/docs/ai-gateway/coding-agents/crush) for LSP-enhanced coding
+* [Configure Superset](/docs/ai-gateway/coding-agents/superset) for terminal-first AI coding
+
+---
+
+Was this helpful?

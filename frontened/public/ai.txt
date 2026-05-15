@@ -1,0 +1,16 @@
+# AI Licensing Policy for Blueberry's Grill
+# Reference: https://blueberry-s-grill.vercel.app/ai.txt
+
+User-agent: *
+Disallow: /private/
+
+# Content Usage Policy
+# We allow AI engines to crawl and cite our content for search and answers.
+# We do not allow the use of our proprietary recipes, brand assets, or photography
+# for the training of generative models without an explicit license.
+
+# Licensing Contact
+# For licensing inquiries, contact: legal@blueberrysgrill.com
+
+# Knowledge Base
+# See /llms.txt for structured machine-readable information.
