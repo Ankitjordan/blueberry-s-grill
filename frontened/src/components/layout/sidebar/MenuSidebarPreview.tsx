@@ -32,6 +32,7 @@ export const DesktopSidebarPreview: React.FC<DesktopSidebarProps> = ({
 						fill
 						sizes="288px"
 						className="object-cover"
+						loading="eager"
 					/>
 					<div className="absolute inset-0 bg-gradient-to-t from-white/70 to-transparent" />
 				</div>

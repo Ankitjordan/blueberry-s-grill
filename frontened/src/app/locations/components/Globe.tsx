@@ -91,11 +91,7 @@ export function GlobeLoader() {
 			</p>
 
 			{/* Keyframe injected inline — avoids needing a global CSS file */}
-			<style>{`
-        @keyframes globe-spin {
-          to { transform: rotate(360deg); }
-        }
-      `}</style>
+			<style>{`@keyframes globe-spin{to{transform:rotate(360deg)}}`}</style>
 		</div>
 	);
 }

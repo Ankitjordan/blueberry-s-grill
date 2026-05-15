@@ -236,6 +236,7 @@ const MenuItemCard: React.FC<MenuItemCardProps> = ({
 					fill
 					sizes="40px"
 					className="object-cover"
+					loading="eager"
 				/>
 			</div>
 			<div className="min-w-0">

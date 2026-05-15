@@ -1,0 +1,252 @@
+Menu
+
+# Getting Started with Routing Middleware
+
+Last updated February 26, 2026
+
+Routing Middleware lets you to run code before your pages load, giving you control over incoming requests. It runs close to your users for fast response times and are perfect for redirects, authentication, and request modification.
+
+AI Assistance
+
+Help me set up Routing Middleware in this project. First, make sure the Vercel CLI is installed (`npm i -g vercel`). If I'm using Claude Code or Cursor, install the Vercel Plugin (`npx plugins add vercel/vercel-plugin`). For other agents, install Vercel Skills (`npx skills add vercel-labs/agent-skills`). Then: 1. Create a middleware file (middleware.ts at the project root, or proxy.ts if using Next.js 16+). 2. Add a redirect from /old-blog to /blog using a permanent redirect. 3. Configure the matcher to run on all paths except static files and images. 4. Test locally with `vercel dev`, then deploy with `vercel --prod`.
+
+Routing Middleware is available on the [Node.js](/docs/functions/runtimes/node-js), [Bun](/docs/functions/runtimes/bun), and [Edge](/docs/functions/runtimes/edge) runtimes. Edge is the default runtime for Routing Middleware. To use Node.js, configure the `runtime` in your middleware config. To use Bun, set [`bunVersion`](/docs/project-configuration#bunversion) in your `vercel.json` file.
+
+Next.js 16 users: Next.js 16 renamed the middleware file from
+`middleware.ts` to `proxy.ts` and changed the function export from
+`middleware` to `proxy`. When using Next.js 16 or later, use `proxy.ts`
+instead of `middleware.ts`. The proxy function runs on Node.js only (Edge
+runtime is not supported). See the [Next.js proxy
+documentation](https://nextjs.org/docs/app/api-reference/file-conventions/proxy)
+for details.
+
+## [What you will learn](#what-you-will-learn)
+
+* Create your first Routing Middleware
+* Redirect users based on URLs
+* Add conditional logic to handle different scenarios
+* Configure which paths your Routing Middleware runs on
+
+## [Prerequisites](#prerequisites)
+
+* A Vercel project
+* Basic knowledge of JavaScript/TypeScript
+
+## [Creating a Routing Middleware](#creating-a-routing-middleware)
+
+The following steps will guide you through creating your first Routing Middleware.
+
+1. ### [Create a new file for your Routing Middleware](#create-a-new-file-for-your-routing-middleware)
+
+   Create a file called `middleware.ts` in your project root (same level as your `package.json`) and add the following code:
+
+   middleware.ts
+
+   ```
+   export const config = {
+     runtime: 'nodejs', // optional: use 'nodejs' or omit for 'edge' (default)
+   };
+
+   export default function middleware(request: Request) {
+     console.log('Request to:', request.url);
+     return new Response('Logging request URL from Middleware');
+   }
+   ```
+
+   [Open inOpen in v0](https://v0.app/chat?q=
+     Create a minimal example app for this code: export const config = {
+     runtime: 'nodejs', // optional: use 'nodejs' or omit for 'edge' (default)
+   };
+
+   export default function middleware(request: Request) {
+     console.log('Request to:', request.url);
+     return new Response('Logging request URL from Middleware');
+   } In your response:
+     1. Keep the example simple and focused on demonstrating the core functionality of the code
+     2. DO NOT include unnecessary features or complexity, aim to only showcase the essential parts
+     3. Show the code in a way that is easy to understand and implement
+     4. Provide clear and concise explanations for each part of the code
+     )
+
+   * Every request to your site will trigger this function
+   * You log the request URL to see what's being accessed
+   * You return a response to prove the middleware is running
+   * The `runtime` config is optional and defaults to `edge`. To use Bun, set [`bunVersion`](/docs/project-configuration#bunversion) in `vercel.json` instead
+
+   Deploy your project and visit any page. You should see "Logging request URL from Middleware" instead of your normal page content.
+2. ### [Redirecting users](#redirecting-users)
+
+   To redirect users based on their URL, add a new route to your project called `/blog`, and modify your `middleware.ts` to include a redirect condition.
+
+   middleware.ts
+
+   ```
+   export const config = {
+     runtime: 'nodejs', // optional: use 'nodejs' or omit for 'edge' (default)
+   };
+
+   export default function middleware(request: Request) {
+     const url = new URL(request.url);
+
+     // Redirect old blog path to new one
+     if (url.pathname === '/old-blog') {
+       return new Response(null, {
+         status: 302,
+         headers: { Location: '/blog' },
+       });
+     }
+
+     // Let other requests continue normally
+     return new Response('Other pages work normally');
+   }
+   ```
+
+   [Open inOpen in v0](https://v0.app/chat?q=
+     Create a minimal example app for this code: export const config = {
+     runtime: 'nodejs', // optional: use 'nodejs' or omit for 'edge' (default)
+   };
+
+   export default function middleware(request: Request) {
+     const url = new URL(request.url);
+
+     // Redirect old blog path to new one
+     if (url.pathname === '/old-blog') {
+       return new Response(null, {
+         status: 302,
+         headers: { Location: '/blog' },
+       });
+     }
+
+     // Let other requests continue normally
+     return new Response('Other pages work normally');
+   } In your response:
+     1. Keep the example simple and focused on demonstrating the core functionality of the code
+     2. DO NOT include unnecessary features or complexity, aim to only showcase the essential parts
+     3. Show the code in a way that is easy to understand and implement
+     4. Provide clear and concise explanations for each part of the code
+     )
+
+   * You use `new URL(request.url)` to parse the incoming URL
+   * You check if the path matches `/old-blog`
+   * If it does, you return a redirect response (status 302)
+   * The `Location` header tells the browser where to go
+
+   Try visiting `/old-blog` - you should be redirected to `/blog`.
+3. ### [Configure which paths trigger the middleware](#configure-which-paths-trigger-the-middleware)
+
+   By default, Routing Middleware runs on every request. To limit it to specific paths, you can use the [`config`](/docs/routing-middleware/api#config-object) object:
+
+   middleware.ts
+
+   ```
+   export default function middleware(request: Request) {
+     const url = new URL(request.url);
+
+     // Only handle specific redirects
+     if (url.pathname === '/old-blog') {
+       return new Response(null, {
+         status: 302,
+         headers: { Location: '/blog' },
+       });
+     }
+
+     return new Response('Middleware processed this request');
+   }
+
+   // Configure which paths trigger the Middleware
+   export const config = {
+     matcher: [
+       // Run on all paths except static files
+       '/((?!_next/static|_next/image|favicon.ico).*)',
+       // Or be more specific:
+       // '/blog/:path*',
+       // '/api/:path*'
+     ],
+   };
+   ```
+
+   [Open inOpen in v0](https://v0.app/chat?q=
+     Create a minimal example app for this code: export default function middleware(request: Request) {
+     const url = new URL(request.url);
+
+     // Only handle specific redirects
+     if (url.pathname === '/old-blog') {
+       return new Response(null, {
+         status: 302,
+         headers: { Location: '/blog' },
+       });
+     }
+
+     return new Response('Middleware processed this request');
+   }
+
+   // Configure which paths trigger the Middleware
+   export const config = {
+     matcher: [
+       // Run on all paths except static files
+       '/((?!_next/static|_next/image|favicon.ico).*)',
+       // Or be more specific:
+       // '/blog/:path*',
+       // '/api/:path*'
+     ],
+   }; In your response:
+     1. Keep the example simple and focused on demonstrating the core functionality of the code
+     2. DO NOT include unnecessary features or complexity, aim to only showcase the essential parts
+     3. Show the code in a way that is easy to understand and implement
+     4. Provide clear and concise explanations for each part of the code
+     )
+
+   * The [`matcher`](/docs/routing-middleware/api#match-paths-based-on-custom-matcher-config) array defines which paths trigger your Routing Middleware
+   * The regex excludes static files (images, CSS, etc.) for better performance
+   * You can also use simple patterns like `/blog/:path*` for specific sections
+
+   See the [API Reference](/docs/routing-middleware/api) for more details on the `config` object and matcher patterns.
+4. ### [Debugging Routing Middleware](#debugging-routing-middleware)
+
+   When things don't work as expected:
+
+   1. Check the logs: Use `console.log()` liberally and check your [Vercel dashboard](/dashboard) Logs section in the sidebar
+   2. Test the matcher: Make sure your paths are actually triggering the Routing Middleware
+   3. Verify headers: Log `request.headers` to see what's available
+   4. Test locally: Routing Middleware works in development too so you can debug before deploying
+
+   middleware.ts
+
+   ```
+   export default function middleware(request: Request) {
+     // Debug logging
+     console.log('URL:', request.url);
+     console.log('Method:', request.method);
+     console.log('Headers:', Object.fromEntries(request.headers.entries()));
+
+     // Your middleware logic here...
+   }
+   ```
+
+## [Middleware reference](#middleware-reference)
+
+| Detail | Value |
+| --- | --- |
+| File location | `middleware.ts` in project root (or `proxy.ts` for Next.js 16+) |
+| Export | `export default function middleware(request: Request)` (or `export function proxy` for Next.js 16+) |
+| [Config export](/docs/routing-middleware/api) | `export const config = { matcher: [...] }` |
+| Default runtime | [`edge`](/docs/functions/runtimes/edge) (set `runtime: 'nodejs'` in config for [Node.js](/docs/functions/runtimes/node-js)) |
+| Bun runtime | Set [`bunVersion`](/docs/project-configuration/vercel-json) in `vercel.json` and `runtime: 'nodejs'` in config |
+| Request object | Standard `Request` API |
+| Geo headers | `x-vercel-ip-country`, `x-vercel-ip-country-region`, `x-vercel-ip-city` |
+| [Path matching](/docs/routing-middleware/api) | Supports regex, named params, and wildcards in the `matcher` config |
+
+## [Next steps](#next-steps)
+
+* [Routing Middleware overview](/docs/routing-middleware)
+* [Routing Middleware API reference](/docs/routing-middleware/api)
+
+---
+
+[Previous
+
+Routing Middleware](/docs/routing-middleware)[Next
+
+API](/docs/routing-middleware/api)
+
+Was this helpful?
