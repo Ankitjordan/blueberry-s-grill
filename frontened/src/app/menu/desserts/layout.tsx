@@ -35,9 +35,9 @@ export default function DessertsLayout({
 					}),
 				}}
 			/>
-			<div className="min-h-[600px] px-6 md:px-0 relative flex flex-col pb-28">
+			<main className="min-h-[600px] px-6 md:px-0 relative flex flex-col pb-28">
 				{children}
-			</div>
+			</main>
 			<MenuBottomNav />
 		</>
 	);

@@ -65,6 +65,12 @@ export default function RootLayout({
 		>
 			<head>
 				<link rel="llms-txt" href="/llms.txt" />
+				<link
+					rel="alternate"
+					type="application/rss+xml"
+					title="Blueberry's Grill Desserts Feed"
+					href="/feed.xml"
+				/>
 			</head>
 			<body className="min-h-full flex flex-col font-sans bg-background text-foreground">
 				<script
@@ -83,6 +89,14 @@ export default function RootLayout({
 								"https://www.instagram.com/blueberrysgrill",
 								"https://www.facebook.com/blueberrysgrill"
 							],
+							"speakable": {
+								"@type": "SpeakableSpecification",
+								"xpath": [
+									"/html/head/title",
+									"/html/head/meta[@name='description']/@content"
+								]
+							},
+							"license": "https://blueberry-s-grill.vercel.app/ai.txt",
 							"address": {
 								"@type": "PostalAddress",
 								"streetAddress": "123 Flavor Street",

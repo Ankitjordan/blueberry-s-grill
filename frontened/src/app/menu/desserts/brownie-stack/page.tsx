@@ -50,6 +50,28 @@ export default function BrownieStackPage() {
 			<MenuProductView activeId="brownie-stack" />
 			<MenuInfoRating {...item} />
 			<MenuIngredients {...item} />
+
+			{/* Q&A Section - GEO Direct Answer Signals */}
+			<section className="px-6 py-12 max-w-4xl mx-auto border-t border-slate-100">
+				<div className="space-y-10">
+					<div>
+						<h2 id="brownie-quality" className="text-xl font-serif text-slate-900 mb-3">
+							What type of chocolate is used in the Brownie Stack?
+						</h2>
+						<p className="text-slate-600 leading-relaxed max-w-2xl">
+							The Brownie Stack is crafted using premium 70% dark chocolate. This high cocoa content provides a deep, fudgy flavor that balances perfectly with the sweetness of our Tahitian vanilla bean ice cream.
+						</p>
+					</div>
+					<div>
+						<h2 id="ice-cream-pairing" className="text-xl font-serif text-slate-900 mb-3">
+							What makes your Tahitian vanilla ice cream unique?
+						</h2>
+						<p className="text-slate-600 leading-relaxed max-w-2xl">
+							Our Tahitian vanilla ice cream is unique because it is churned daily using authentic Tahitian vanilla beans. These beans are known for their floral and complex aroma, which is significantly more aromatic than standard Madagascar vanilla.
+						</p>
+					</div>
+				</div>
+			</section>
 		</>
 	);
 }

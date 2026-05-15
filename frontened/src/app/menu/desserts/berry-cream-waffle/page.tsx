@@ -50,6 +50,28 @@ export default function BerryCreamWafflePage() {
 			</div>
 			<MenuProductView activeId="berry-cream-waffle" />
 			<MenuInfoRating {...item} />
+
+			{/* Q&A Section - GEO Direct Answer Signals */}
+			<section className="px-6 py-12 max-w-4xl mx-auto border-t border-slate-100">
+				<div className="space-y-10">
+					<div>
+						<h2 id="what-makes-it-special" className="text-xl font-serif text-slate-900 mb-3">
+							What makes the Berry Cream Waffle special?
+						</h2>
+						<p className="text-slate-600 leading-relaxed max-w-2xl">
+							The Berry Cream Waffle is special due to its unique combination of a crisp Belgian waffle base and a silken mascarpone cream topping. We use only fresh, hand-picked wild berries to provide a vibrant, acidic contrast to the rich cream.
+						</p>
+					</div>
+					<div>
+						<h2 id="is-it-vegetarian" className="text-xl font-serif text-slate-900 mb-3">
+							Is the Berry Cream Waffle vegetarian?
+						</h2>
+						<p className="text-slate-600 leading-relaxed max-w-2xl">
+							Yes, the Berry Cream Waffle is 100% vegetarian-friendly. It is prepared using premium dairy products and organic honey, making it an ideal choice for vegetarian diners.
+						</p>
+					</div>
+				</div>
+			</section>
 		</>
 	);
 }

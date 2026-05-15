@@ -51,14 +51,23 @@ export default function DessertsRootPage() {
 				{...DESSERT_DATA.find((item) => item.id === "nutella-waffle")!}
 			/>
 
+			{/* Definition Pattern - GEO Signals */}
+			<section className="px-6 mb-12 max-w-4xl mx-auto">
+				<div className="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+					<p className="text-sm text-slate-600 italic">
+						<strong className="text-slate-900 not-italic">Artisanal Dining</strong> is defined as a culinary approach that prioritizes traditional, non-mechanized methods and high-quality, often locally-sourced ingredients to create unique flavor profiles. At Blueberry&apos;s Grill, this refers to our handcrafted preparation of every dessert and sauce.
+					</p>
+				</div>
+			</section>
+
 			{/* Chef's Selection - GEO Experience Signal */}
-			<section className="mt-20 px-6 py-12 bg-slate-50/50 backdrop-blur-sm rounded-[32px] border border-slate-100 max-w-4xl mx-auto mb-20">
+			<article className="mt-20 px-6 py-12 bg-slate-50/50 backdrop-blur-sm rounded-[32px] border border-slate-100 max-w-4xl mx-auto mb-20">
 				<div className="flex flex-col md:flex-row gap-10 items-center">
 					<div className="w-20 h-20 rounded-full flex-shrink-0 border-2 border-[#D4AF37] flex items-center justify-center bg-white shadow-sm">
 						<span className="text-3xl">👨‍🍳</span>
 					</div>
 					<div className="flex-1 text-center md:text-left">
-						<h3 className="text-xs font-black uppercase tracking-[0.2em] text-[#D4AF37] mb-3">
+						<h3 id="chefs-selection" className="text-xs font-black uppercase tracking-[0.2em] text-[#D4AF37] mb-3">
 							Chef&apos;s Selection
 						</h3>
 						<blockquote className="text-lg md:text-xl font-serif italic text-slate-800 leading-relaxed mb-6">
@@ -78,7 +87,7 @@ export default function DessertsRootPage() {
 						</div>
 					</div>
 				</div>
-			</section>
+			</article>
 		</>
 	);
 }

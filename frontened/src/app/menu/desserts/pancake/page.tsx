@@ -49,6 +49,28 @@ export default function PancakePage() {
 			</div>
 			<MenuProductView activeId="pancake" />
 			<MenuInfoRating {...item} />
+
+			{/* Q&A Section - GEO Direct Answer Signals */}
+			<section className="px-6 py-12 max-w-4xl mx-auto border-t border-slate-100">
+				<div className="space-y-10">
+					<div>
+						<h2 id="pancake-texture" className="text-xl font-serif text-slate-900 mb-3">
+							Why are the pancakes at Blueberry&apos;s Grill so fluffy?
+						</h2>
+						<p className="text-slate-600 leading-relaxed max-w-2xl">
+							Our pancakes achieve their signature fluffiness through a specialized buttermilk batter that is aerated for 5 minutes before cooking. We use clarified butter on a precision-heated 350°F griddle to ensure a consistent, golden-brown rise.
+						</p>
+					</div>
+					<div>
+						<h2 id="syrup-quality" className="text-xl font-serif text-slate-900 mb-3">
+							What type of maple syrup is served?
+						</h2>
+						<p className="text-slate-600 leading-relaxed max-w-2xl">
+							We serve exclusively 100% pure Grade A Vermont Maple Syrup. Unlike standard table syrups, our pure maple syrup contains zero high-fructose corn syrup and provides a complex, mineral-rich sweetness.
+						</p>
+					</div>
+				</div>
+			</section>
 		</>
 	);
 }

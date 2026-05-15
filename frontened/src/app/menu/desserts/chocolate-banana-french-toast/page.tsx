@@ -51,6 +51,28 @@ export default function ChocolateBananaFrenchToastPage() {
 			</div>
 			<MenuProductView activeId="chocolate-banana-french-toast" />
 			<MenuInfoRating {...item} />
+
+			{/* Q&A Section - GEO Direct Answer Signals */}
+			<section className="px-6 py-12 max-w-4xl mx-auto border-t border-slate-100">
+				<div className="space-y-10">
+					<div>
+						<h2 id="bread-choice" className="text-xl font-serif text-slate-900 mb-3">
+							What type of bread is used for the French Toast?
+						</h2>
+						<p className="text-slate-600 leading-relaxed max-w-2xl">
+							We use thick-cut artisanal brioche bread for our French Toast. This enriched bread is chosen for its high butter and egg content, which creates a custardy interior and a perfectly caramelized exterior during the searing process.
+						</p>
+					</div>
+					<div>
+						<h2 id="banana-caramelization" className="text-xl font-serif text-slate-900 mb-3">
+							How are the caramelized bananas prepared?
+						</h2>
+						<p className="text-slate-600 leading-relaxed max-w-2xl">
+							Our bananas are pan-seared with organic brown sugar and a hint of Madagascar vanilla until they achieve a deep mahogany caramelization. This process takes approximately 3 minutes per batch to ensure a soft texture and intense flavor.
+						</p>
+					</div>
+				</div>
+			</section>
 		</>
 	);
 }
