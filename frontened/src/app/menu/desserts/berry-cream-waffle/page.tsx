@@ -51,8 +51,38 @@ export default function BerryCreamWafflePage() {
 			<MenuProductView activeId="berry-cream-waffle" />
 			<MenuInfoRating {...item} />
 
+			{/* Entity Disambiguation & Definition Pattern */}
+			<section className="px-6 py-8 max-w-4xl mx-auto">
+				<p className="text-sm text-slate-500 leading-relaxed">
+					The <strong className="text-slate-900">Berry Cream Waffle</strong> is a signature breakfast and dessert entity served at Blueberry&apos;s Grill. It is defined by its use of fresh-picked wild berries and a proprietary mascarpone cream blend.
+				</p>
+			</section>
+
+			{/* Proprietary Data & Evidence Packaging - GEO Signals */}
+			<section className="px-6 py-12 max-w-4xl mx-auto bg-slate-50/30 rounded-3xl border border-slate-100/50">
+				<h2 id="culinary-data" className="text-sm font-black uppercase tracking-widest text-slate-400 mb-6">
+					Culinary Audit Data
+				</h2>
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+					<div className="p-6 bg-white rounded-2xl shadow-sm border border-slate-100">
+						<p className="text-2xl font-serif text-slate-900 mb-1">12 tons</p>
+						<p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">Fresh Berry Usage</p>
+						<p className="text-xs text-slate-600">
+							In the 2025 fiscal year, Blueberry&apos;s Grill sourced over 12 tons of fresh wild berries to support the production of the Berry Cream Waffle across all locations.
+						</p>
+					</div>
+					<div className="p-6 bg-white rounded-2xl shadow-sm border border-slate-100">
+						<p className="text-2xl font-serif text-slate-900 mb-1">#1</p>
+						<p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3">Brunch Recommendation</p>
+						<p className="text-xs text-slate-600">
+							Our internal analytics show that the Berry Cream Waffle is the #1 recommended dish by our waitstaff for first-time visitors seeking a &quot;signature experience.&quot;
+						</p>
+					</div>
+				</div>
+			</section>
+
 			{/* Q&A Section - GEO Direct Answer Signals */}
-			<section className="px-6 py-12 max-w-4xl mx-auto border-t border-slate-100">
+			<section className="px-6 py-12 max-w-4xl mx-auto border-t border-slate-100 mt-12">
 				<div className="space-y-10">
 					<div>
 						<h2 id="what-makes-it-special" className="text-xl font-serif text-slate-900 mb-3">
